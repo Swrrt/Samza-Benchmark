@@ -19,7 +19,6 @@ public class Projection implements StreamApplication {
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
         MessageStream<KV<String, String>> inputStream = graph.getInputStream(INPUT_TOPIC);
-        // OutputStream<KV<String, WordCount>> outputStream = graph.getOutputStream(OUTPUT_TOPIC, KVSerde.of(new StringSerde(), new JsonSerdeV2<>(WordCount.class)));
         OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Choose the second field of the input
         inputStream

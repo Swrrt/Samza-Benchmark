@@ -18,20 +18,20 @@ import org.apache.samza.storage.kv.RocksDbKeyValueStorageEngineFactory;
 import java.time.Duration;
 import java.util.Arrays;
 
-public class WordCounter implements StreamApplication{
+public class DistinctCounter implements StreamApplication{
     private static final String INPUT_TOPIC = "WordSplitterOutput";
-    private static final String OUTPUT_TOPIC = "WordCounterOutput";
+    private static final String OUTPUT_TOPIC = "DistinctCounterOutput";
     private KeyValueStore<String, Integer> counter;
     @Override
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
         MessageStream<String> inputStream = graph.getInputStream(INPUT_TOPIC);
-        OutputStream<KV<String, Integer>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
+         OutputStream<KV<String, Integer>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
                 .window(Windows.keyedTumblingWindow(
-                        string -> string, Duration.ofSeconds(3), () -> 0, (m, prevCount) -> prevCount + 1,
-                        new StringSerde(), new IntegerSerde()), "count")
+                        string -> string, Duration.ofSeconds(3), () -> 1, (m, prevCount) -> prevCount,
+                        new StringSerde(), new IntegerSerde()), "distinct")
                 .map(windowPane -> {
                     String word = windowPane.getKey().getKey();
                     int count = windowPane.getMessage();
