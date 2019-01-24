@@ -21,7 +21,7 @@ public class Projection implements StreamApplication {
         // Choose the second field of the input
         inputStream
                 .map((message) -> {
-                    return KV.of(message.getKey(), message.getValue().split("\t")[1]);
+                    return KV.of(message.getKey(), message.getValue().split(" ")[1]);
                 })
                 .sendTo(outputStream);
     }
