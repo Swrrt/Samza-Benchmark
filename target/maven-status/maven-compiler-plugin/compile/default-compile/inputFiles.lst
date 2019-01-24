@@ -1,9 +1,0 @@
-/home/samza/Samza-Benchmark/src/main/java/application/Grep.java
-/home/samza/Samza-Benchmark/src/main/java/application/Sample.java
-/home/samza/Samza-Benchmark/src/main/java/application/map.java
-/home/samza/Samza-Benchmark/src/main/java/application/DistinctCounter.java
-/home/samza/Samza-Benchmark/src/main/java/application/Identity.java
-/home/samza/Samza-Benchmark/src/main/java/application/Projection.java
-/home/samza/Samza-Benchmark/src/main/java/application/WordCount/WordSplitter.java
-/home/samza/Samza-Benchmark/src/main/java/application/filter.java
-/home/samza/Samza-Benchmark/src/main/java/application/WordCount/WordCounter.java
