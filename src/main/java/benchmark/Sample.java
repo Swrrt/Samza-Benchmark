@@ -1,4 +1,4 @@
-package application;
+package benchmark;
 
 import org.apache.samza.application.StreamApplication;
 import org.apache.samza.config.Config;
@@ -11,19 +11,19 @@ import org.apache.samza.serializers.StringSerde;
 
 import java.util.Random;
 
-public class Projection implements StreamApplication {
+public class Sample implements StreamApplication{
     private static final String INPUT_TOPIC = "StreamBenchInput";
-    private static final String OUTPUT_TOPIC = "ProjectionOutput";
+    private static final String OUTPUT_TOPIC = "SampleOutput";
 
     @Override
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
         MessageStream<KV<String, String>> inputStream = graph.getInputStream(INPUT_TOPIC);
         OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
-        // Choose the second field of the input
+        // Sample the input with probability
         inputStream
-                .map((message) -> {
-                    return KV.of(message.getKey(), message.getValue().split("\t")[1]);
+                .filter((message) -> {
+                    return (new Random()).nextInt(100)<50;
                 })
                 .sendTo(outputStream);
     }
