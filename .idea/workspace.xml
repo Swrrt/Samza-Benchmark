@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/DistinctCounter.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/DistinctCounter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/Grep.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/Grep.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/Identity.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/Identity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/Projection.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/Projection.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/Sample.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/Sample.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/WordCount/WordCounter.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/WordCount/WordCounter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/application/WordCount/WordSplitter.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/WordCount/WordSplitter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/DistinctCounter.properties" afterPath="$PROJECT_DIR$/src/main/config/DistinctCounter.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Grep.properties" afterPath="$PROJECT_DIR$/src/main/config/Grep.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Identity.properties" afterPath="$PROJECT_DIR$/src/main/config/Identity.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Projection.properties" afterPath="$PROJECT_DIR$/src/main/config/Projection.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Sample.properties" afterPath="$PROJECT_DIR$/src/main/config/Sample.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/WordCounter.properties" afterPath="$PROJECT_DIR$/src/main/config/WordCounter.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/WordSplitter.properties" afterPath="$PROJECT_DIR$/src/main/config/WordSplitter.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +23,8 @@
       <file leaf-file-name="Identity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/Identity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+            <state relative-caret-position="255">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,21 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Identity.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Identity.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WordCounter.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="510">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,8 +55,18 @@
       <file leaf-file-name="DistinctCounter.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/DistinctCounter.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="510">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WordCounter.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,8 +75,8 @@
       <file leaf-file-name="Grep.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="510">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -85,8 +85,8 @@
       <file leaf-file-name="Projection.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/Projection.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="578">
+              <caret line="34" column="1" lean-forward="false" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -95,28 +95,18 @@
       <file leaf-file-name="Sample.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/Sample.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="510">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WordSplitter.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WordSplitter.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/config/WordSplitter.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="510">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,15 +142,15 @@
         <option value="$PROJECT_DIR$/src/main/java/application/WordCount/DistinctCounter.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/WordCount/WordCounter.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/DistinctCounter.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/assembly/src.xml" />
+        <option value="$PROJECT_DIR$/src/main/config/Identity.properties" />
         <option value="$PROJECT_DIR$/src/main/config/DistinctCounter.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Grep.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Projection.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Sample.properties" />
         <option value="$PROJECT_DIR$/src/main/config/WordCounter.properties" />
         <option value="$PROJECT_DIR$/src/main/config/WordSplitter.properties" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/assembly/src.xml" />
-        <option value="$PROJECT_DIR$/src/main/config/Identity.properties" />
       </list>
     </option>
   </component>
@@ -543,7 +533,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -840,22 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/DistinctCounter.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/config/map.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -864,42 +840,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Projection.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Sample.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/WordSplitter.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -930,8 +874,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/Identity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -940,8 +884,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+        <state relative-caret-position="510">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/DistinctCounter.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Projection.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="1" lean-forward="false" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Sample.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/WordSplitter.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>
