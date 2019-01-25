@@ -38,10 +38,9 @@ public class DistinctCounter implements StreamApplication {
                 .sendTo(outputStream);
     }
 
-    private class Distinct {
-        public HashSet<String> distinct;
+    private static class Distinct implements Serializable{
+        public HashSet<String> distinct = new HashSet<>();
         private Distinct(){
-            distinct = new HashSet<>();
         }
         private Distinct(HashSet<String> a){
             distinct = new HashSet<>();
