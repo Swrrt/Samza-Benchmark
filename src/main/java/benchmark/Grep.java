@@ -21,7 +21,7 @@ public class Grep implements StreamApplication{
         // Sample the input with probability
         inputStream
                 .filter((message) -> {
-                    return message.getValue().contains(".org");
+                    return message.getValue().contains("|A|");
                 })
                 .sendTo(outputStream);
     }
