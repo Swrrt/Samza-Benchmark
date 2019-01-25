@@ -21,17 +21,17 @@ public class WordCounter implements StreamApplication{
     @Override
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
-        MessageStream<String> inputStream = graph.getInputStream(INPUT_TOPIC);
-        OutputStream<KV<String, Integer>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
+        MessageStream<KV<String, String>> inputStream = graph.getInputStream(INPUT_TOPIC);
+        OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
                 .window(Windows.keyedTumblingWindow(
-                        string -> string, Duration.ofDays(1), () -> 0, (m, prevCount) -> prevCount + 1,
+                        message -> message.getValue(), Duration.ofDays(1), () -> 0, (m, prevCount) -> prevCount + 1,
                         new StringSerde(), new IntegerSerde()), "count")
                 .map(windowPane -> {
                     String word = windowPane.getKey().getKey();
                     int count = windowPane.getMessage();
-                    return KV.of(word, count);
+                    return KV.of(word, String.valueOf(count));
                 })
                 .sendTo(outputStream);
     }

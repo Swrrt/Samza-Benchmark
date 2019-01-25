@@ -18,12 +18,13 @@ public class WordSplitter implements StreamApplication{
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
         MessageStream<KV<String, String>> inputStream = graph.getInputStream(INPUT_TOPIC);
-        OutputStream<String> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
+        OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
                 .flatMap((message) -> {
                     return Arrays.asList(message.getValue().split("|"));
                 })
+                .map((message) -> KV.of("", message))
                 .sendTo(outputStream);
     }
 }

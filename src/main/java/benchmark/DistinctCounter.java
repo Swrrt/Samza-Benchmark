@@ -2,6 +2,7 @@ package benchmark;
 
 import org.apache.samza.application.StreamApplication;
 import org.apache.samza.config.Config;
+import org.apache.samza.operators.KV;
 import org.apache.samza.operators.MessageStream;
 import org.apache.samza.operators.OutputStream;
 import org.apache.samza.operators.StreamGraph;
@@ -27,13 +28,13 @@ public class DistinctCounter implements StreamApplication {
     @Override
     public void init(StreamGraph graph, Config config) {
         graph.setDefaultSerde(KVSerde.of(new StringSerde(), new StringSerde()));
-        MessageStream<String> inputStream = graph.getInputStream(INPUT_TOPIC);
-        OutputStream<String> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
+        MessageStream<KV<String, String>> inputStream = graph.getInputStream(INPUT_TOPIC);
+        OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
                 .window(Windows.tumblingWindow(Duration.ofSeconds(10), Distinct::new, new distinctAggreggator(), new DistinctSerdes()), "distinctWindow")
                 .map(windowPane -> {
-                    return formatOutput((WindowPane<Void,Distinct>)windowPane);
+                    return KV.of("", formatOutput((WindowPane<Void,Distinct>)windowPane));
                 })
                 .sendTo(outputStream);
     }
@@ -50,14 +51,14 @@ public class DistinctCounter implements StreamApplication {
             return distinct.toString();
         }
     }
-    private class distinctAggreggator implements FoldLeftFunction<String, Distinct>{
+    private class distinctAggreggator implements FoldLeftFunction<KV<String, String>, Distinct>{
         @Override
         public void init(Config config, TaskContext taskContext){
         }
 
-        public Distinct apply(String string, Distinct distinct){
-            if(!distinct.distinct.contains(string)){
-                distinct.distinct.add(string);
+        public Distinct apply(KV<String,String> string, Distinct distinct){
+            if(!distinct.distinct.contains(string.getValue())){
+                distinct.distinct.add(string.getValue());
             }
             return distinct;
         }
