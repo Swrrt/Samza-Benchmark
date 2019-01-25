@@ -23,7 +23,6 @@ import java.util.Set;
 public class DistinctCounter implements StreamApplication {
     private static final String INPUT_TOPIC = "WordSplitterOutput";
     private static final String OUTPUT_TOPIC = "DistinctCounterOutput";
-    private KeyValueStore<String, Integer> counter;
 
     @Override
     public void init(StreamGraph graph, Config config) {
@@ -39,11 +38,13 @@ public class DistinctCounter implements StreamApplication {
                 .sendTo(outputStream);
     }
 
-    private static class Distinct {
-        Set<String> distinct = new HashSet<>();
+    private class Distinct {
+        public HashSet<String> distinct;
         private Distinct(){
+            distinct = new HashSet<>();
         }
         private Distinct(HashSet<String> a){
+            distinct = new HashSet<>();
             distinct.addAll(a);
         }
         @Override
