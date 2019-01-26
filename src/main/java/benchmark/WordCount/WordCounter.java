@@ -26,7 +26,7 @@ public class WordCounter implements StreamApplication{
         // Split the input into multiple strings
         inputStream
                 .window(Windows.keyedTumblingWindow(
-                        message -> message.getValue(), Duration.ofDays(1), () -> 0, (m, prevCount) -> prevCount + 1,
+                        message -> message.getValue(), Duration.ofSeconds(5), () -> 0, (m, prevCount) -> prevCount + 1,
                         new StringSerde(), new IntegerSerde()), "count")
                 .map(windowPane -> {
                     String word = windowPane.getKey().getKey();
