@@ -31,77 +31,57 @@ public class DistinctCounter implements StreamApplication {
         OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
-                .window(Windows.tumblingWindow(Duration.ofSeconds(10), Distinct::new, new distinctAggreggator(), new DistinctSerdes()), "distinctWindow")
+                .window(Windows.tumblingWindow(Duration.ofSeconds(10), Distinct::new, new distinctAggreggator(), Distinct.serde()), "distinctWindow")
                 .map(windowPane -> {
                     return KV.of("", formatOutput((WindowPane<Void,Distinct>)windowPane));
                 })
                 .sendTo(outputStream);
     }
 
-    private static class Distinct implements Serializable{
-        public HashSet<String> distinct = new HashSet<>();
-        private Distinct(){
-        }
-        private Distinct(HashSet<String> a){
-            distinct = new HashSet<>();
-            distinct.addAll(a);
-        }
+    public static class Distinct implements Serializable{
+        public Set<String> distinct = new HashSet<>();
         @Override
         public String toString(){
             return distinct.toString();
         }
+        static Serde<Distinct> serde(){
+            return new DistinctSerdes();
+        }
+        public static class DistinctSerdes implements Serde<Distinct>{
+            @Override
+            public byte[] toBytes(Distinct obj){
+                try{
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    ObjectOutputStream dos = new ObjectOutputStream(bos);
+                    dos.writeObject(obj.distinct);
+                    return bos.toByteArray();
+                }catch (Exception e){
+                    throw new RuntimeException(e);
+                }
+            }
+            @Override
+            public Distinct fromBytes(byte[] bytes){
+                try{
+                    ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                    ObjectInputStream ois = new ObjectInputStream(bis);
+                    Distinct distinct = new Distinct();
+                    distinct.distinct = (Set<String>)ois.readObject();
+                    return distinct;
+                }catch (Exception e){
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
     }
     private class distinctAggreggator implements FoldLeftFunction<KV<String, String>, Distinct>{
         @Override
         public void init(Config config, TaskContext taskContext){
         }
-
+        @Override
         public Distinct apply(KV<String,String> string, Distinct distinct){
             if(!distinct.distinct.contains(string.getValue())){
                 distinct.distinct.add(string.getValue());
-            }
-            return distinct;
-        }
-    }
-    private class DistinctSerdes implements Serde<Distinct>{
-        private final String encoding;
-        public DistinctSerdes(){
-            encoding = "UTF-8";
-        }
-        public byte[] toBytes(Distinct obj){
-            if(obj != null){
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ObjectOutput out = null;
-                byte[] bytes = null;
-                try{
-                    out = new ObjectOutputStream(bos);
-                    out.writeObject(obj.distinct);
-                    out.flush();
-                    bytes = bos.toByteArray();
-
-                }catch (Exception e){
-                }
-                try{
-                    bos.close();
-                }catch (IOException e){
-                }
-                return bytes;
-            }else{
-                return null;
-            }
-        }
-        public Distinct fromBytes(byte[] bytes){
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = null;
-            Distinct distinct = null;
-            try{
-                in = new ObjectInputStream(bis);
-                distinct = new Distinct((HashSet<String>)in.readObject());
-            }catch (Exception e){
-            }
-            try{
-                if(in!=null)in.close();
-            }catch (IOException ex){
             }
             return distinct;
         }
