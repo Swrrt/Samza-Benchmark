@@ -12,7 +12,6 @@ import java.util.List;
 public class AOLgenerator {
     private final String outputTopic = "StreamBenchInput";
     public static void main(String[] arg){
-        KafkaProducer a = ;
 
     }
 }
