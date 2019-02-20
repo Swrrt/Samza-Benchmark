@@ -1,9 +1,7 @@
 package generator;
 
-import kafka.utils.VerifiableProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Partitioner;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import scala.sys.Prop;
 
@@ -41,7 +39,7 @@ public class AOLgenerator {
     }
     public void generate(String file)throws InterruptedException{
         Properties props = setProps();
-        Producer<String, String> producer = new KafkaProducer<String, String>(props);
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
         BufferedReader br = null;
         FileReader fr = null;
         long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 2000, signal_interval = 3000000;
@@ -74,7 +72,7 @@ public class AOLgenerator {
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
     }
-    public void processAOLformat(String line, Producer<String, String> producer){
+    public void processAOLformat(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
     }
