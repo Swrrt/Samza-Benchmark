@@ -20,38 +20,62 @@ import java.util.Scanner;
     Could start multiple generator on different host.
 */
 public class AOLgenerator {
-    private static final String outputTopic = "StreamBenchInput";
-    private static final String bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
-    public static void main(String[] arg){
+    private final String outputTopic;
+    private final String bootstrapServer;
+    public AOLgenerator(){
+        outputTopic = "StreamBenchInput";
+        bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
+    }
+    public AOLgenerator(String topic, String bootstrapServer){
+        outputTopic = topic;
+        this.bootstrapServer = bootstrapServer;
+    }
+    public static void main(String[] args)throws InterruptedException{
+        AOLgenerator generator = new AOLgenerator();
+        String file = args[0];
+        if(args.length > 1){
+            generator = new AOLgenerator(args[0], args[1]);
+            file = args[2];
+        }
+        generator.generate(file);
+    }
+    public void generate(String file)throws InterruptedException{
+        Properties props = setProps();
+        Producer<String, String> producer = new KafkaProducer<String, String>(props);
         BufferedReader br = null;
         FileReader fr = null;
-        int n = arg.length;
-        for(int i = 0; i<n;i++){
-            try{
-                fr = new FileReader(arg[i]);
-                br = new BufferedReader(fr);
-                Properties props = setProps();
-                Producer<String, String> producer = new KafkaProducer<String, String>(props);
-                String curLine = br.readLine(); //Skip the first line of the file
-                while((curLine = br.readLine())!=null){
-                    processAOLformat(curLine, producer);
+        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 2000, signal_interval = 3000000;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String curLine = br.readLine(); //Skip the first line of the file
+            while ((curLine = br.readLine()) != null) {
+                processAOLformat(curLine, producer);
+                line++;
+                time = System.nanoTime();
+                if(time - ltime >= signal_interval){
+                    System.out.println("lines: " + String.valueOf(line - lline));
+                    System.out.println("time: " + String.valueOf(time - ltime));
+                    ltime = time;
+                    lline = line;
                 }
-                producer.close();
-            }catch (IOException e){
-                e.printStackTrace();
+                while(System.nanoTime() - time < interval);         /* Control the throughput of producing*/
             }
+            producer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    public static Properties setProps(){
+    public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.server", bootstrapServer);
+        prop.put("client.id", "AOLgenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
     }
-    public static void processAOLformat(String line, Producer<String, String> producer){
-        String [] items = line.split("\t");
-        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, items[0], line);
+    public void processAOLformat(String line, Producer<String, String> producer){
+        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
     }
 }
