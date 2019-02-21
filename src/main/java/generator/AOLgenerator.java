@@ -2,6 +2,8 @@ package generator;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,6 +15,7 @@ import java.util.Properties;
     Could start multiple generator on different host.
 */
 public class AOLgenerator {
+    private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
     public AOLgenerator(){
@@ -53,7 +56,7 @@ public class AOLgenerator {
     }
     public Properties setProps(){
         Properties prop = new Properties();
-        prop.put("bootstrap.server", bootstrapServer);
+        prop.put("bootstrap.servers", bootstrapServer);
         prop.put("client.id", "AOLgenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
