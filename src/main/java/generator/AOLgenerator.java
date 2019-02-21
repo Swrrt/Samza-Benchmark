@@ -23,15 +23,7 @@ public class AOLgenerator {
         outputTopic = topic;
         this.bootstrapServer = bootstrapServer;
     }
-    public static void main(String[] args)throws InterruptedException{
-        AOLgenerator generator = new AOLgenerator();
-        String file = args[0];
-        if(args.length > 1){
-            generator = new AOLgenerator(args[0], args[1]);
-            file = args[2];
-        }
-        generator.generate(file);
-    }
+
     public void generate(String file)throws InterruptedException{
         Properties props = setProps();
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
@@ -70,5 +62,14 @@ public class AOLgenerator {
     public void processAOLformat(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
+    }
+    public static void main(String[] args)throws InterruptedException{
+        AOLgenerator generator = new AOLgenerator();
+        String file = args[0];
+        if(args.length > 1){
+            generator = new AOLgenerator(args[0], args[1]);
+            file = args[2];
+        }
+        generator.generate(file);
     }
 }
