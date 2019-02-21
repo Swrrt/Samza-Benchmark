@@ -42,8 +42,8 @@ public class AOLgenerator {
                 line++;
                 time = System.nanoTime();
                 if(time - ltime >= signal_interval){
-                    System.out.println("lines: " + String.valueOf(line - lline));
-                    System.out.println("time: " + String.valueOf(time - ltime));
+                    System.out.printf("lines: %d", line - lline);
+                    System.out.printf("time: %.3f", (time - ltime)/1000000000.0);
                     ltime = time;
                     lline = line;
                 }
