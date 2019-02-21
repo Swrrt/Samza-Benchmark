@@ -4,23 +4,115 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.lab</groupId>
+    <groupId>org.apache.samza</groupId>
     <artifactId>benchmark</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>Samza benchmark</name>
     <description>Benchmark applications and data generators</description>
 
-    <modules>
-        <module>samza</module>
-        <module>generator</module>
-    </modules>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-api</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-core_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-log4j</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-shell</artifactId>
+            <classifier>dist</classifier>
+            <type>tgz</type>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-yarn_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-kv_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-kv-rocksdb_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-kafka_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.10.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.schwering</groupId>
+            <artifactId>irclib</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-annotations</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-auth</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-api</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-client</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-yarn-common</artifactId>
+            <version>${hadoop.version}</version>
         </dependency>
     </dependencies>
 
@@ -29,9 +121,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <samza.version>0.14.0</samza.version>
         <hadoop.version>2.6.1</hadoop.version>
-        <junit.version>4.4</junit.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
     <developers>
