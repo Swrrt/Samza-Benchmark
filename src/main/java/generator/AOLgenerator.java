@@ -1,17 +1,12 @@
 package generator;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import scala.sys.Prop;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
 
 /*
     Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic.
