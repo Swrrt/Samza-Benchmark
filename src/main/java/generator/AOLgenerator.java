@@ -19,7 +19,7 @@ public class AOLgenerator {
     private final String outputTopic;
     private final String bootstrapServer;
     public AOLgenerator(){
-        outputTopic = "StreamBenchInput";
+        outputTopic = "AOLraw";
         bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
     }
     public AOLgenerator(String topic, String bootstrapServer){
