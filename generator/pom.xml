@@ -3,35 +3,39 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.lab</groupId>
-    <artifactId>benchmark</artifactId>
-    <version>0.0.1</version>
-    <packaging>jar</packaging>
-    <name>Samza benchmark</name>
-    <description>Benchmark applications and data generators</description>
-
-    <modules>
-        <module>samza</module>
-        <module>generator</module>
-    </modules>
+    <parent>
+        <groupId>org.lab</groupId>
+        <artifactId>benchmark</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <artifactId>generator</artifactId>
+    <name>generator</name>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.10.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.13</version>
         </dependency>
     </dependencies>
 
     <properties>
         <!-- maven specific properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <samza.version>0.14.0</samza.version>
-        <hadoop.version>2.6.1</hadoop.version>
-        <junit.version>4.4</junit.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
     <developers>
@@ -49,17 +53,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <scm>
-        <connection>scm:git:git://github.com/linkedin/hello-samza.git</connection>
-        <developerConnection>scm:git:git@github.com:linkedin/hello-samza.git</developerConnection>
-        <url>http://github.com/linkedin/hello-samza/</url>
-    </scm>
-
-    <issueManagement>
-        <system>github</system>
-        <url>http://github.com/linkedin/hello-samza/issues</url>
-    </issueManagement>
 
     <repositories>
         <repository>
@@ -91,7 +84,7 @@
     </pluginRepositories>
 
     <build>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -110,6 +103,9 @@
                     <descriptors>
                         <descriptor>src/main/assembly/src.xml</descriptor>
                     </descriptors>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
                 <executions>
                     <execution>
@@ -118,6 +114,14 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <classifier>assembly</classifier>
+                            <archive>
+                                <manifestEntries>
+                                    <program-class>org.lab.App</program-class>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

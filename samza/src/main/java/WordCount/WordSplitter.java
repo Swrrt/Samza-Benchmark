@@ -1,4 +1,4 @@
-package benchmark.WordCount;
+package WordCount;
 
 import org.apache.samza.application.StreamApplication;
 import org.apache.samza.config.Config;
