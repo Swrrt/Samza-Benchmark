@@ -12,7 +12,8 @@ import java.util.Properties;
 
 /*
     Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic.
-    Push all data to Kafka topics before running stream application
+    TODO: Currently Unavailable!
+    TODO: Push all data to Kafka topics before running stream application (Need to modify configuration or Samza)
 */
 public class PerformanceWorkloadGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
