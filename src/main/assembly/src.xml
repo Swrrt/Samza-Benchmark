@@ -56,7 +56,7 @@
         <include>org.slf4j:slf4j-log4j12</include>
         <include>org.apache.kafka:kafka_2.11</include>
         <include>org.apache.hadoop:hadoop-hdfs</include>
-        <include>org.lab.benchmark</include>
+        <include>org.lab:benchmark</include>
       </includes>
       <useTransitiveFiltering>true</useTransitiveFiltering>
     </dependencySet>
