@@ -12,19 +12,22 @@ import java.util.Properties;
 
 /*
     Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic.
-    Could start multiple generator on different host.
+    Push all data to Kafka topics before running stream application
 */
-public class AOLgenerator {
+public class PerformanceWorkloadGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
-    public AOLgenerator(){
+    private long limit = 5000000;
+    public PerformanceWorkloadGenerator(){
         outputTopic = "AOLraw";
         bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
+        limit = 5000000; //baseline
     }
-    public AOLgenerator(String topic, String bootstrapServer){
+    public PerformanceWorkloadGenerator(String topic, String bootstrapServer, long limit){
         outputTopic = topic;
         this.bootstrapServer = bootstrapServer;
+        this.limit = limit;
     }
 
     public void generate(String file)throws InterruptedException{
@@ -47,10 +50,10 @@ public class AOLgenerator {
                     ltime = time;
                     lline = line;
                 }
-                while(System.nanoTime() - time < interval);         /* Control the throughput of producing*/
-                if(line >= 10000)break;
+                if(line >= limit)break;
             }
             producer.close();
+            System.out.printf("Output Complete: %d records", line);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,11 +71,11 @@ public class AOLgenerator {
         producer.send(record);
     }
     public static void main(String[] args)throws InterruptedException{
-        AOLgenerator generator = new AOLgenerator();
+        PerformanceWorkloadGenerator generator = new PerformanceWorkloadGenerator();
         String file = args[0];
         if(args.length > 1){
-            generator = new AOLgenerator(args[0], args[1]);
-            file = args[2];
+            generator = new PerformanceWorkloadGenerator(args[0], args[1], Long.parseLong(args[2]));
+            file = args[3];
         }
         generator.generate(file);
     }
