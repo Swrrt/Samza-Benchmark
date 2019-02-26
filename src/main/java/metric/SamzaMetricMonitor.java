@@ -58,30 +58,33 @@ public class SamzaMetricMonitor {
     }
     private void parseProcessEnvelopes(String record){
         JSONObject json = new JSONObject(record);
-        if(json.getJSONObject("header").getString("container-name").contains("samza-container")&&json.getJSONObject("metrics").has("SamzaContainerMetrics")){
-            //System.out.println(json.getJSONObject("metrics"));
-            long processEnvelopes = json.getJSONObject("metrics").
-                    getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
-                    getLong("process-envelopes");
-            long time = json.getJSONObject("header").getLong("time");
-            String containerId = json.getJSONObject("header").getString("container-name");
-            long dEnv = processEnvelopes;
-            if(processEnv.containsKey(containerId)) {
-                dEnv -= processEnv.get(containerId);
-            }
-            long dTime = time;
-            if(processTime.containsKey(containerId)) {
-                dTime -= processTime.get(containerId);
-                double throughput = dEnv / ((double) dTime);
-                if(avgThroughput.containsKey(containerId)){
-                    totalThroughput -= avgThroughput.get(containerId);
+        System.out.println(json);
+        if(json.getJSONObject("header").getString("container-name").contains("samza-container")){
+            System.out.println("!!!!!!\n"+json.getJSONObject("metrics")+"!!!!!!\n");
+            if(json.getJSONObject("metrics").has("SamzaContainerMetrics")) {
+                long processEnvelopes = json.getJSONObject("metrics").
+                        getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
+                        getLong("process-envelopes");
+                long time = json.getJSONObject("header").getLong("time");
+                String containerId = json.getJSONObject("header").getString("container-name");
+                long dEnv = processEnvelopes;
+                if (processEnv.containsKey(containerId)) {
+                    dEnv -= processEnv.get(containerId);
                 }
-                avgThroughput.put(containerId, throughput);
-                totalThroughput += throughput;
-                System.out.printf("%d Current total throughput: %f\n", time, totalThroughput);
+                long dTime = time;
+                if (processTime.containsKey(containerId)) {
+                    dTime -= processTime.get(containerId);
+                    double throughput = dEnv / ((double) dTime);
+                    if (avgThroughput.containsKey(containerId)) {
+                        totalThroughput -= avgThroughput.get(containerId);
+                    }
+                    avgThroughput.put(containerId, throughput);
+                    totalThroughput += throughput;
+                    System.out.printf("%d Current total throughput: %f\n", time, totalThroughput);
+                }
+                processEnv.put(containerId, processEnvelopes);
+                processTime.put(containerId, time);
             }
-            processEnv.put(containerId, processEnvelopes);
-            processTime.put(containerId, time);
         }
     }
 
