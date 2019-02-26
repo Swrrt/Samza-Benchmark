@@ -32,7 +32,7 @@ public class AOLgenerator {
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
         BufferedReader br = null;
         FileReader fr = null;
-        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 2000000l, signal_interval = 3000000000l;
+        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/100000 /* Number of records per second*/, signal_interval = 3000000000l;
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);

@@ -56,7 +56,7 @@ public class SamzaMetricMonitor {
     private void parseProcessEnvelopes(String record){
         JSONObject json = new JSONObject(record);
         //System.out.println(json);
-        if(json.getJSONObject("header").getString("container-name").contains("samza-container")){
+        if(json.getJSONObject("header").getString("job-name").equals(appName) && json.getJSONObject("header").getString("container-name").contains("samza-container")){
             //System.out.println("!!!!!!\n"+json.getJSONObject("metrics")+"!!!!!!\n");
             if(json.getJSONObject("metrics").has("org.apache.samza.container.SamzaContainerMetrics")) {
                 long processEnvelopes = json.getJSONObject("metrics").
@@ -91,10 +91,10 @@ public class SamzaMetricMonitor {
      * @param groupId
      * @return
      */
-    private static Properties createConsumerConfig(String brokers) {
+    private static Properties createConsumerConfig(String brokers, String appName) {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "group1");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, appName);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
@@ -107,12 +107,13 @@ public class SamzaMetricMonitor {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String brokers = args[1];
+        String brokers = args[0];
         // String groupId = args[1];
-        String topic = args[0];
-        Properties props = createConsumerConfig(brokers);
+        String topic = args[1];
+        String appName = args[2];
+        Properties props = createConsumerConfig(brokers, appName);
         SamzaMetricMonitor example = new SamzaMetricMonitor(props, topic);
-        //example.appName = args[2];
+        example.appName = args[2];
         example.run();
 
         example.shutdown();
