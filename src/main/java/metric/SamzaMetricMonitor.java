@@ -82,7 +82,6 @@ public class SamzaMetricMonitor {
                     totalThroughput += throughput;
                     System.out.printf("%d Current total throughput: %.2f\n", time, totalThroughput * 1000);
                 }
-                System.out.printf("%d %d\n",dTime, dEnv);
                 processEnv.put(containerId, processEnvelopes);
                 processTime.put(containerId, time);
             }
