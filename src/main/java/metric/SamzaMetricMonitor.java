@@ -59,7 +59,10 @@ public class SamzaMetricMonitor {
     private void parseProcessEnvelopes(String record){
         JSONObject json = new JSONObject(record);
         if(json.getJSONObject("header").getString("container-name").contains("samza-container")){
-            long processEnvelopes = json.getJSONObject("metrics").getJSONObject("org.apache.samza.container.SamzaContainerMetrics").getLong("process-envelopes");
+            System.out.println(json.getJSONObject("metrics"));
+            long processEnvelopes = json.getJSONObject("metrics").
+                    getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
+                    getLong("process-envelopes");
             long time = json.getJSONObject("header").getLong("time");
             String containerId = json.getJSONObject("header").getString("container-name");
             long dEnv = processEnvelopes;
