@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java" afterPath="$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" afterPath="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scripts/metrics.sh" afterPath="$PROJECT_DIR$/src/scripts/metrics.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scripts/generate-AOL.sh" afterPath="$PROJECT_DIR$/src/scripts/generate-AOL.sh" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +18,11 @@
       <file leaf-file-name="AOLgenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="34" column="103" lean-forward="false" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
+            <state relative-caret-position="596">
+              <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1110#1126#0" expanded="true" />
+                <element signature="e#1133#1149#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,16 +63,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="metrics.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/metrics.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="150" lean-forward="true" selection-start-line="1" selection-start-column="150" selection-end-line="1" selection-end-column="150" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="performance-workload.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/performance-workload.sh">
           <provider selected="true" editor-type-id="text-editor">
@@ -88,17 +77,7 @@
         <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="155" lean-forward="false" selection-start-line="3" selection-start-column="155" selection-end-line="3" selection-end-column="155" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Identity.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="3" column="157" lean-forward="false" selection-start-line="3" selection-start-column="148" selection-end-line="3" selection-end-column="157" />
               <folding />
             </state>
           </provider>
@@ -162,7 +141,6 @@
         <option value="$PROJECT_DIR$/src/main/java/generator/PerformanceWorkloadGenerator.java" />
         <option value="$PROJECT_DIR$/src/scripts/remove-topic.sh" />
         <option value="$PROJECT_DIR$/src/scripts/increase-partition.sh" />
-        <option value="$PROJECT_DIR$/src/scripts/generate-AOL.sh" />
         <option value="$PROJECT_DIR$/src/main/assembly/src.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/scripts/generate-metrics.sh" />
@@ -171,6 +149,7 @@
         <option value="$MAVEN_REPOSITORY$/org/apache/kafka/kafka-clients/0.10.1.1/kafka-clients-0.10.1.1.jar!/org/apache/kafka/clients/consumer/internals/SubscriptionState.class" />
         <option value="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
         <option value="$PROJECT_DIR$/src/scripts/metrics.sh" />
+        <option value="$PROJECT_DIR$/src/scripts/generate-AOL.sh" />
         <option value="$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java" />
       </list>
     </option>
@@ -687,7 +666,7 @@
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1110#1126#0" expanded="true" />
+            <element signature="e#1133#1149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -901,14 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="155" lean-forward="false" selection-start-line="3" selection-start-column="155" selection-end-line="3" selection-end-column="155" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/performance-workload.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -929,14 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4556">
           <caret line="325" column="0" lean-forward="true" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -967,13 +930,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="157" lean-forward="false" selection-start-line="3" selection-start-column="148" selection-end-line="3" selection-end-column="157" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="34" column="103" lean-forward="false" selection-start-line="34" selection-start-column="103" selection-end-line="34" selection-end-column="103" />
+        <state relative-caret-position="596">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1110#1126#0" expanded="true" />
+            <element signature="e#1133#1149#0" expanded="true" />
           </folding>
         </state>
       </provider>
