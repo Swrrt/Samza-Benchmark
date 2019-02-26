@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Identity.properties" afterPath="$PROJECT_DIR$/src/main/config/Identity.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" afterPath="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SamzaMetricMonitor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SamzaMetricMonitor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="83" column="17" lean-forward="true" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
+            <state relative-caret-position="358">
+              <caret line="44" column="67" lean-forward="true" selection-start-line="44" selection-start-column="67" selection-end-line="44" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,7 +82,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Identity.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Identity.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="143">
@@ -156,8 +155,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/scripts/generate-metrics.sh" />
         <option value="$PROJECT_DIR$/src/main/java/generator/AOLgenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
         <option value="$PROJECT_DIR$/src/main/config/Identity.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
+        <option value="$MAVEN_REPOSITORY$/org/apache/kafka/kafka-clients/0.10.1.1/kafka-clients-0.10.1.1.jar!/org/apache/kafka/clients/consumer/KafkaConsumer.class" />
+        <option value="$MAVEN_REPOSITORY$/org/apache/kafka/kafka-clients/0.10.1.1/kafka-clients-0.10.1.1.jar!/org/apache/kafka/clients/consumer/internals/SubscriptionState.class" />
       </list>
     </option>
   </component>
@@ -603,22 +604,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/config/WordSplitter.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2057">
-          <caret line="121" column="29" lean-forward="false" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
@@ -887,14 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="155" lean-forward="false" selection-start-line="3" selection-start-column="155" selection-end-line="3" selection-end-column="155" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/assembly/src.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -907,6 +884,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="141" lean-forward="false" selection-start-line="1" selection-start-column="141" selection-end-line="1" selection-end-column="141" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/Identity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2210">
+          <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="155" lean-forward="false" selection-start-line="3" selection-start-column="155" selection-end-line="3" selection-end-column="155" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -930,37 +939,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/Identity.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/kafka/kafka-clients/0.10.1.1/kafka-clients-0.10.1.1.jar!/org/apache/kafka/clients/consumer/internals/SubscriptionState.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        <state relative-caret-position="229">
+          <caret line="163" column="19" lean-forward="false" selection-start-line="163" selection-start-column="19" selection-end-line="163" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/kafka/kafka-clients/0.10.1.1/kafka-clients-0.10.1.1.jar!/org/apache/kafka/clients/consumer/KafkaConsumer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2210">
-          <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+        <state relative-caret-position="4556">
+          <caret line="325" column="0" lean-forward="true" selection-start-line="325" selection-start-column="0" selection-end-line="325" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="83" column="17" lean-forward="true" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
+        <state relative-caret-position="358">
+          <caret line="44" column="67" lean-forward="true" selection-start-line="44" selection-start-column="67" selection-end-line="44" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Identity.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>

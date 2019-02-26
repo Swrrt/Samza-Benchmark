@@ -40,21 +40,16 @@ public class SamzaMetricMonitor {
 
     public void run() {
         consumer.subscribe(Collections.singletonList(this.topic));
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-            while(true) {
-                try {
-                    ConsumerRecords<String, String> records = consumer.poll(1000);
-                    for (ConsumerRecord<String, String> record : records) {
+        try {
+            ConsumerRecords<String, String> records = consumer.poll(1000);
+            for (ConsumerRecord<String, String> record : records) {
                         // sent kafka msg by http
                         // System.out.println("Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-                        parseProcessEnvelopes(record.value());
-                    }
-                }catch(Exception ex) {
-                    ex.printStackTrace();
-                }
+                parseProcessEnvelopes(record.value());
             }
-        });
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
     private void parseProcessEnvelopes(String record){
         JSONObject json = new JSONObject(record);
