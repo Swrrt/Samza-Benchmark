@@ -16,7 +16,7 @@ public class SamzaMetricMonitor {
     private final String topic;
     private ExecutorService executor;
     private long delay;
-
+    private String appName;
 
     public SamzaMetricMonitor(Properties props, String topic) {
         consumer = new KafkaConsumer<>(props);
@@ -77,11 +77,12 @@ public class SamzaMetricMonitor {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String brokers = args[0];
+        String brokers = args[1];
         // String groupId = args[1];
-        String topic = args[1];
+        String topic = args[0];
         Properties props = createConsumerConfig(brokers);
         SamzaMetricMonitor example = new SamzaMetricMonitor(props, topic);
+        //example.appName = args[2];
         example.run();
 
         Thread.sleep(60*1000);
