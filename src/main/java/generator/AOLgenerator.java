@@ -82,7 +82,7 @@ public class AOLgenerator {
             Keep generating from the first file to the last file until reach the target number
             If target number is -1, generate infinitely.
         * */
-        long numberToGenerate = Long.parseLong(args[3]);
+        long numberToGenerate = Long.parseLong(args[2]);
         if(numberToGenerate == -1) {
             while (true) {
                 for (int i = 0; i < n; i++)
