@@ -119,8 +119,6 @@ public class SamzaMetricMonitor {
         //example.appName = args[2];
         example.run();
 
-        Thread.sleep(60*1000);
-
         example.shutdown();
     }
 }
