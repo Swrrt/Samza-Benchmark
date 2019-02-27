@@ -27,12 +27,12 @@ public class AOLgenerator {
         this.bootstrapServer = bootstrapServer;
     }
 
-    public long generate(String file, long numberToGenerate)throws InterruptedException{
+    public long generate(String file, long numberToGenerate, long speed)throws InterruptedException{
         Properties props = setProps();
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
         BufferedReader br = null;
         FileReader fr = null;
-        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/100000 /* Number of records per second*/, signal_interval = 3000000000l;
+        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 3000000000l;
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -73,25 +73,30 @@ public class AOLgenerator {
     public static void main(String[] args)throws InterruptedException{
         AOLgenerator generator = new AOLgenerator();
         generator = new AOLgenerator(args[0], args[1]);
-        int n = args.length - 3;
+        int n = args.length - 4;
         String [] files = new String[n];
         for(int i=0 ; i<n ; i++){
-            files[i] = args[i+3];
+            files[i] = args[i+4];
         }
         /*
             Keep generating from the first file to the last file until reach the target number
             If target number is -1, generate infinitely.
         * */
         long numberToGenerate = Long.parseLong(args[2]);
+        /*
+            Number of records generated per second.
+            Limited by Kafka (Around ???)
+         */
+        long speed = Long.parseLong(args[3]);
         if(numberToGenerate == -1) {
             while (true) {
                 for (int i = 0; i < n; i++)
-                    generator.generate(files[i], -1);
+                    generator.generate(files[i], -1, speed);
             }
         }else{
             while (numberToGenerate > 0) {
                 for (int i = 0; i < n; i++)
-                    numberToGenerate -= generator.generate(files[i], numberToGenerate);
+                    numberToGenerate -= generator.generate(files[i], numberToGenerate, speed);
             }
         }
     }
