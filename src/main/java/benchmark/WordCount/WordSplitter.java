@@ -22,9 +22,10 @@ public class WordSplitter implements StreamApplication{
         // Split the input into multiple strings
         inputStream
                 .flatMap((message) -> {
-                    return Arrays.asList(message.getValue().split("\\|"));
+                    //return Arrays.asList(message.getValue().split("\\|"));
+                    return Arrays.asList(message.getValue().split("\\s+"));
                 })
-                .map((message) -> KV.of("", message))
+                .map((message) -> KV.of(message, message))
                 .sendTo(outputStream);
     }
 }
