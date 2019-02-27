@@ -85,7 +85,7 @@ public class AOLgenerator {
         long numberToGenerate = Long.parseLong(args[2]);
         /*
             Number of records generated per second.
-            Limited by Kafka (Around ???)
+            Limited by Kafka (Around 500000)
          */
         long speed = Long.parseLong(args[3]);
         if(numberToGenerate == -1) {
