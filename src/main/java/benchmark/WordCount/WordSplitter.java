@@ -23,7 +23,7 @@ public class WordSplitter implements StreamApplication{
         inputStream
                 .flatMap((message) -> {
                     //return Arrays.asList(message.getValue().split("\\|"));
-                    return Arrays.asList(message.getValue().split("\\s+"));
+                    return Arrays.asList(message.getValue().split("[\\s\\xA0]+"));
                 })
                 .map((message) -> KV.of(message, message))
                 .sendTo(outputStream);
