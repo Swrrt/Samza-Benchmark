@@ -66,7 +66,8 @@ public class SamzaMetricMonitor {
                 String containerId = json.getJSONObject("header").getString("container-name");
                 long dEnv = processEnvelopes;
                 if (processEnv.containsKey(containerId)) {
-                    dEnv -= processEnv.get(containerId);
+                    if(processEnvelopes > processEnv.get(containerId)) /* When container restart (due to scaling or load rebalancing), the processed envelopes will start from 0 again */
+                        dEnv -= processEnv.get(containerId);
                 }
                 long dTime = time;
                 if (processTime.containsKey(containerId)) {
