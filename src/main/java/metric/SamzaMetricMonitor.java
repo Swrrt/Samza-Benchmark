@@ -62,6 +62,16 @@ public class SamzaMetricMonitor {
                 long processEnvelopes = json.getJSONObject("metrics").
                         getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
                         getLong("process-envelopes");
+                double processLatency = json.getJSONObject("metrics").
+                        getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
+                        getLong("process-ns");
+                double windowLatency = json.getJSONObject("metrics").
+                        getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
+                        getLong("window-ns");
+                double commitLatency = json.getJSONObject("metrics").
+                        getJSONObject("org.apache.samza.container.SamzaContainerMetrics").
+                        getLong("commit-ns");
+                double totalLatency = processLatency + windowLatency + commitLatency;
                 long time = json.getJSONObject("header").getLong("time");
                 String containerId = json.getJSONObject("header").getString("container-name");
                 long dEnv = processEnvelopes;
@@ -80,7 +90,8 @@ public class SamzaMetricMonitor {
                     totalThroughput += throughput;
                     //System.out.printf("%.2f Container ID: %s, throughput: %.2f, ", time / 1000.0, containerId, throughput * 1000);
                     //System.out.printf("total throughput: %.2f\n", totalThroughput * 1000);
-                    System.out.printf("%.2f %s %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalThroughput * 1000);
+                    
+                    System.out.printf("%.2f %s %.2f %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000);
 
                 }
                 processEnv.put(containerId, processEnvelopes);
