@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/Grep.properties" afterPath="$PROJECT_DIR$/src/main/config/Grep.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,17 +48,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grep.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Grep.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+            <state relative-caret-position="68">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grep.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Grep.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/Grep.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
@@ -91,8 +91,8 @@
       <file leaf-file-name="WordCounter.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+            <state relative-caret-position="119">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -149,7 +149,6 @@
         <option value="$PROJECT_DIR$/src/main/java/application/WordCount/WordCounter.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/DistinctCounter.java" />
         <option value="$PROJECT_DIR$/src/main/config/DistinctCounter.properties" />
-        <option value="$PROJECT_DIR$/src/main/config/Grep.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Projection.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Sample.properties" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/Projection.java" />
@@ -176,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/main/config/WordCounter.properties" />
         <option value="$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/Grep.java" />
+        <option value="$PROJECT_DIR$/src/main/config/Grep.properties" />
       </list>
     </option>
   </component>
@@ -898,22 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/generate-AOL.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -954,6 +938,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounter.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/Grep.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
