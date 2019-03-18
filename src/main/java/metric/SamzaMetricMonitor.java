@@ -82,7 +82,8 @@ public class SamzaMetricMonitor {
                 long dTime = time;
                 if (processTime.containsKey(containerId)) {
                     dTime -= processTime.get(containerId);
-                    double throughput = dEnv / ((double) dTime);
+                    double throughput = 0;
+                    if (dTime > 0) throughput = dEnv / ((double) dTime);
                     if (avgThroughput.containsKey(containerId)) {
                         totalThroughput -= avgThroughput.get(containerId);
                     }
