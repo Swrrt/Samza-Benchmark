@@ -8,6 +8,8 @@ import org.apache.samza.operators.OutputStream;
 import org.apache.samza.operators.StreamGraph;
 import org.apache.samza.serializers.KVSerde;
 import org.apache.samza.serializers.StringSerde;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class WordSplitter implements StreamApplication{
@@ -23,7 +25,14 @@ public class WordSplitter implements StreamApplication{
         inputStream
                 .flatMap((message) -> {
                     //return Arrays.asList(message.getValue().split("\\|"));
-                    return Arrays.asList(message.getValue().split("[\\s\\xA0]+"));
+                    // TODO: change the split
+                    // The split could cause memory error
+                    //return Arrays.asList(message.getValue().split("[\\s\\xA0]+"));
+                    ArrayList<String> result = new ArrayList();
+                    for(int i=0; i < message.getValue().split("[\\\\s\\\\xA0]+").length;i++){
+                        result.add(new String(message.getValue().split("[\\\\s\\\\xA0]+")[i]));
+                    }
+                    return result;
                 })
                 .map((message) -> KV.of(message, message))
                 .sendTo(outputStream);
