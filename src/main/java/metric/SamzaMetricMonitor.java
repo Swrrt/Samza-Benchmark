@@ -110,7 +110,7 @@ public class SamzaMetricMonitor {
     private static Properties createConsumerConfig(String brokers, String appName) {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, brokers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "SamzaMetricsReader");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, appName + "MetricsReader");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
