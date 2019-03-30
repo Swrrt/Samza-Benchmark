@@ -18,13 +18,17 @@ public class AOLgenerator {
     private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
+    private final boolean isKeyPartition;
     public AOLgenerator(){
         outputTopic = "AOLraw";
         bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
+        isKeyPartition = false;
     }
-    public AOLgenerator(String topic, String bootstrapServer){
+    public AOLgenerator(String topic, String bootstrapServer, String input3){
         outputTopic = topic;
         this.bootstrapServer = bootstrapServer;
+        if(input3.equals("true") || input3.equals("True") || input3.equals("TRUE"))isKeyPartition = true;
+        else isKeyPartition = false;
     }
 
     public long generate(String file, long numberToGenerate, long speed)throws InterruptedException{
@@ -38,7 +42,8 @@ public class AOLgenerator {
             br = new BufferedReader(fr);
             String curLine = br.readLine(); //Skip the first line of the file
             while ((curLine = br.readLine()) != null) {
-                processAOLformat(curLine, producer);
+                if(isKeyPartition)processAOLformat(curLine, producer);
+                else processAOLformatWithKey(curLine, producer);
                 line++;
                 time = System.nanoTime();
                 if(time - ltime >= signal_interval){
@@ -66,13 +71,19 @@ public class AOLgenerator {
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
     }
+    // Round-Robin
     public void processAOLformat(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
     }
+    // With Key
+    public void processAOLformatWithKey(String line, KafkaProducer<String, String> producer){
+        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line.split("[\\\\s\\\\xA0]+")[0], line);
+        producer.send(record);
+    }
     public static void main(String[] args)throws InterruptedException{
         AOLgenerator generator = new AOLgenerator();
-        generator = new AOLgenerator(args[0], args[1]);
+        generator = new AOLgenerator(args[0], args[1], args[2]);
         int n = args.length - 4;
         String [] files = new String[n];
         for(int i=0 ; i<n ; i++){
