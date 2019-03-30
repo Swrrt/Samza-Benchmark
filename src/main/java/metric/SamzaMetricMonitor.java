@@ -8,6 +8,7 @@ import org.json.*;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,6 +16,7 @@ import java.util.concurrent.Executors;
 public class SamzaMetricMonitor {
     private final KafkaConsumer<String,String> consumer;
     private final String topic;
+    private final long processSpeedTimeout = 30000;
     private ExecutorService executor;
     private long delay;
     private String appName;
@@ -75,25 +77,29 @@ public class SamzaMetricMonitor {
                 long time = json.getJSONObject("header").getLong("time");
                 String containerId = json.getJSONObject("header").getString("container-name");
                 long dEnv = processEnvelopes;
-                if (processEnv.containsKey(containerId)) {
-                    if(processEnvelopes > processEnv.get(containerId)) /* When container restart (due to scaling or load rebalancing), the processed envelopes will start from 0 again */
-                        dEnv -= processEnv.get(containerId);
-                }
                 long dTime = time;
-                if (processTime.containsKey(containerId)) {
-                    dTime -= processTime.get(containerId);
-                    double throughput = 0;
-                    if (dTime > 0) throughput = dEnv / ((double) dTime);
-                    if (avgThroughput.containsKey(containerId)) {
-                        totalThroughput -= avgThroughput.get(containerId);
+                for(Map.Entry<String, Long> entry: processTime.entrySet()){
+                    if(time - entry.getValue() > processSpeedTimeout){
+                        processTime.remove(entry.getKey());
+                        processEnv.remove(entry.getKey());
+                        if(avgThroughput.containsKey(entry.getKey())){
+                            totalThroughput -= avgThroughput.get(containerId);
+                            avgThroughput.remove(entry.getKey());
+                        }
                     }
-                    avgThroughput.put(containerId, throughput);
-                    totalThroughput += throughput;
-                    //System.out.printf("%.2f Container ID: %s, throughput: %.2f, ", time / 1000.0, containerId, throughput * 1000);
-                    //System.out.printf("total throughput: %.2f\n", totalThroughput * 1000);
-                    
-                    System.out.printf("%.2f %s %.2f %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000);
-
+                }
+                if (processEnv.containsKey(containerId) && processTime.containsKey(containerId)) {
+                    if (processEnvelopes > processEnv.get(containerId)) {
+                        dEnv -= processEnv.get(containerId);
+                        dTime -= processTime.get(containerId);
+                        double throughput = 0;
+                        if (dTime > 0) {
+                            throughput = dEnv / ((double) dTime);
+                            avgThroughput.put(containerId, throughput);
+                            totalThroughput += throughput;
+                            System.out.printf("%.2f %s %.2f %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000);
+                        }
+                    }
                 }
                 processEnv.put(containerId, processEnvelopes);
                 processTime.put(containerId, time);
