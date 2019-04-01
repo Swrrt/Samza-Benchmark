@@ -35,22 +35,26 @@ public class DumbGenerator {
         Properties props = setProps();
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
         long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 3000000000l;
-        for(Map.Entry<String, Integer> entry: dumbStrings.entrySet()){
-            String curLine = entry.getKey();
-            for(int times = 0 ;times <entry.getValue(); times++) {
-                if (isKeyPartition) processAOLformat(curLine, producer);
-                else processAOLformatWithKey(curLine, producer);
-                line++;
-                time = System.nanoTime();
-                if (time - ltime >= signal_interval) {
-                    System.out.printf("lines: %d, ", line - lline);
-                    System.out.printf("time: %.3f\n\n", (time - ltime) / 1000000000.0);
-                    ltime = time;
-                    lline = line;
+        int timess = 1000000;
+        while(timess-- >= 0) {
+            for (Map.Entry<String, Integer> entry : dumbStrings.entrySet()) {
+                String curLine = entry.getKey();
+                for (int times = 0; times < entry.getValue(); times++) {
+                    if (isKeyPartition) processAOLformat(curLine, producer);
+                    else processAOLformatWithKey(curLine, producer);
+                    line++;
+                    time = System.nanoTime();
+                    if (time - ltime >= signal_interval) {
+                        System.out.printf("lines: %d, ", line - lline);
+                        System.out.printf("time: %.3f\n\n", (time - ltime) / 1000000000.0);
+                        ltime = time;
+                        lline = line;
+                    }
+                    while (System.nanoTime() - time < interval) ;         /* Control the throughput of producing*/
                 }
-                while (System.nanoTime() - time < interval) ;         /* Control the throughput of producing*/
+                //if(line >= 10000)break;
             }
-            //if(line >= 10000)break;
+
         }
         producer.close();
     }
@@ -102,8 +106,6 @@ public class DumbGenerator {
             Number of records generated per second.
             Limited by Kafka (Around 500000)
          */
-        while (true) {
-            generator.generate(dumbStrings, speed);
-        }
+        while(true)generator.generate(dumbStrings, speed);
     }
 }
