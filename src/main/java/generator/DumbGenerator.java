@@ -99,7 +99,7 @@ public class DumbGenerator {
                 output.append(str);
                 output.append(' ');
             }
-            if(i<n)dumbStrings.put(output.toString(), 50);
+            if(i<n)dumbStrings.put(output.toString(), 100);
             else dumbStrings.put(output.toString(), 1);
         }
          /*

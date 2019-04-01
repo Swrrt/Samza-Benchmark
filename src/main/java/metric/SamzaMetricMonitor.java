@@ -95,6 +95,8 @@ public class SamzaMetricMonitor {
                         double throughput = 0;
                         if (dTime > 0) {
                             throughput = dEnv / ((double) dTime);
+                            if(avgThroughput.containsKey(containerId))
+                                totalThroughput -= avgThroughput.get(containerId);
                             avgThroughput.put(containerId, throughput);
                             totalThroughput += throughput;
                             System.out.printf("%.2f %s %.2f %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000);
