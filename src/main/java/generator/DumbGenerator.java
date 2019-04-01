@@ -83,10 +83,10 @@ public class DumbGenerator {
         for(int i=0;i<100;i++){
             StringBuilder str = new StringBuilder();
 
-            str.append((char)i%26+'a');
+            str.append((char)(i%26+'a'));
             str.append(i);
-            str.append((char)i%26+'a');
-            str.append((char)i%26+'a');
+            str.append((char)(i%26+'a'));
+            str.append((char)(i%26+'a'));
 
             StringBuilder output = new StringBuilder();
             int times = 10;
