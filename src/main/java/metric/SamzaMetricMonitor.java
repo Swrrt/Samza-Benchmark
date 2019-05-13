@@ -24,6 +24,7 @@ public class SamzaMetricMonitor {
     private HashMap<String, Long> processTime;
     private HashMap<String, Double> avgThroughput;
     private double totalThroughput;
+    private long totalProcessed;
     public SamzaMetricMonitor(Properties props, String topic) {
         consumer = new KafkaConsumer<>(props);
         this.topic = topic;
@@ -31,6 +32,7 @@ public class SamzaMetricMonitor {
         processTime = new HashMap<>();
         avgThroughput = new HashMap<>();
         totalThroughput = 0;
+        totalProcessed = 0;
     }
 
     public void shutdown() {
@@ -92,6 +94,7 @@ public class SamzaMetricMonitor {
                     if (processEnvelopes > processEnv.get(containerId)) {
                         dEnv -= processEnv.get(containerId);
                         dTime -= processTime.get(containerId);
+                        totalProcessed += dEnv;
                         double throughput = 0;
                         if (dTime > 0) {
                             throughput = dEnv / ((double) dTime);
@@ -99,7 +102,7 @@ public class SamzaMetricMonitor {
                                 totalThroughput -= avgThroughput.get(containerId);
                             avgThroughput.put(containerId, throughput);
                             totalThroughput += throughput;
-                            System.out.printf("%.2f %s %.2f %.2f %.2f\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000);
+                            System.out.printf("%.2f %s %.2f %.2f %.2f %ld %ld\n", time / 1000.0, containerId, throughput * 1000, totalLatency / 1000000.0, totalThroughput * 1000, processEnvelopes, totalProcessed);
                         }
                         processEnv.put(containerId, processEnvelopes);
                         processTime.put(containerId, time);
