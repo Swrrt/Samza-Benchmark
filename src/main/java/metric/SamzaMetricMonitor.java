@@ -46,7 +46,7 @@ public class SamzaMetricMonitor {
         consumer.subscribe(Collections.singletonList(this.topic));
         while(true){
             try {
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                ConsumerRecords<String, String> records = consumer.poll(3000);
                 for (ConsumerRecord<String, String> record : records) {
                     // sent kafka msg by http
                     // System.out.println("Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
@@ -85,7 +85,7 @@ public class SamzaMetricMonitor {
                         processTime.remove(entry.getKey());
                         processEnv.remove(entry.getKey());
                         if(avgThroughput.containsKey(entry.getKey())){
-                            totalThroughput -= avgThroughput.get(containerId);
+                            totalThroughput -= avgThroughput.get(entry.getKey());
                             avgThroughput.remove(entry.getKey());
                         }
                     }
@@ -107,8 +107,7 @@ public class SamzaMetricMonitor {
                         processEnv.put(containerId, processEnvelopes);
                         processTime.put(containerId, time);
                     }
-                }
-                if(!processEnv.containsKey(containerId)) {
+                }else{
                     processEnv.put(containerId, processEnvelopes);
                     processTime.put(containerId, time);
                 }
