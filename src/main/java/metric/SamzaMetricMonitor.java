@@ -6,10 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.json.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -80,7 +77,9 @@ public class SamzaMetricMonitor {
                 String containerId = json.getJSONObject("header").getString("container-name");
                 long dEnv = processEnvelopes;
                 long dTime = time;
-                for(Map.Entry<String, Long> entry: processTime.entrySet()){
+                List<Map.Entry<String, Long>> entries = new LinkedList<>();
+                entries.addAll(processTime.entrySet());
+                for(Map.Entry<String, Long> entry: entries){
                     if(time - entry.getValue() > processSpeedTimeout){
                         processTime.remove(entry.getKey());
                         processEnv.remove(entry.getKey());
