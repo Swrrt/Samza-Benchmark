@@ -57,7 +57,7 @@ public class AOLPoissonGenerator {
                         ltime = time;
                         lline = line;
                     }
-                    double curInterval = interval / (10*Math.cos(time / skewnessPeriod) + 0.5); // 0.1~2 of original speed
+                    double curInterval = interval / ((Math.cos(time / skewnessPeriod) + 1.6)/2); // 0.3~1.3 of original speed
                     //Gaussian distribution of short-term arrival
                     double stdDeviation = curInterval / 3;
                     double exponentialRandom = rand.nextGaussian() * stdDeviation + curInterval;
