@@ -59,10 +59,7 @@ public class WordSplitter implements StreamApplication{
                     // TODO: change the split
                     // The split could cause memory error
                     //return Arrays.asList(message.getValue().split("[\\s\\xA0]+"));
-                    ArrayList<String> result = new ArrayList();
-                    for(int i=0; i < message.getValue().split("[" + whitespace_chars + "]+").length;i++){
-                        result.add(new String(message.getValue().split("[" + whitespace_chars + "]+")[i]));
-                    }
+                    ArrayList<String> result = new ArrayList<String>(Arrays.asList(message.getValue().split("[" + whitespace_chars + "]+")));
                     return result;
                 })
                 .map((message) -> KV.of(message, message))

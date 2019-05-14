@@ -58,7 +58,7 @@ public class DumbGenerator {
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
-        prop.put("client.id", "AOLFixedGenerator");
+        prop.put("client.id", "DumbGenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
