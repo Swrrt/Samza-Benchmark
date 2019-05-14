@@ -38,7 +38,7 @@ public class AOLPoissonGenerator {
         BufferedReader br = null;
         FileReader fr = null;
         Random rand = new Random();
-        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 5000000000l;
+        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, stdDeviation = interval / 5, signal_interval = 5000000000l;
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -54,7 +54,7 @@ public class AOLPoissonGenerator {
                     ltime = time;
                     lline = line;
                 }
-                double exponentialRandom = Math.log(1-rand.nextDouble())/(-interval);
+                double exponentialRandom = rand.nextGaussian()*stdDeviation + interval;
                 while(System.nanoTime() - time < exponentialRandom);         /* Control the throughput of producing*/
                 //if(line >= 10000)break;
                 if(line >= numberToGenerate)break;
@@ -66,6 +66,18 @@ public class AOLPoissonGenerator {
         }
         return line;
     }
+    public long getPoissonRandom(double mean){
+        Random r = new Random();
+        double L = Math.exp(-mean);
+        long k = 0;
+        double p = 1.0;
+        do {
+            p = p * r.nextDouble();
+            k++;
+        } while (p > L);
+        return k - 1;
+    }
+
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
