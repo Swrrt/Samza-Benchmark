@@ -134,7 +134,7 @@ public class AOLPoissonGenerator {
     }
     // With Key
     public void processAOLformatWithKey(String line, KafkaProducer<String, String> producer){
-        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line.split("[\\\\s\\\\xA0]+")[0], line);
+        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line, line);
         producer.send(record);
     }
     public static void main(String[] args)throws InterruptedException{
