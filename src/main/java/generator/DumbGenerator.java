@@ -5,9 +5,6 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 /*
@@ -15,7 +12,7 @@ import java.util.*;
     Could start multiple generator on different host.
 */
 public class DumbGenerator {
-    private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AOLFixedGenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
     private final boolean isKeyPartition;
@@ -61,7 +58,7 @@ public class DumbGenerator {
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
-        prop.put("client.id", "AOLgenerator");
+        prop.put("client.id", "AOLFixedGenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;

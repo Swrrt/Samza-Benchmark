@@ -16,7 +16,7 @@ import java.util.Properties;
     TODO: Push all data to Kafka topics before running stream application (Need to modify configuration or Samza)
 */
 public class PerformanceWorkloadGenerator {
-    private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AOLFixedGenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
     private long limit = 5000000;
@@ -62,7 +62,7 @@ public class PerformanceWorkloadGenerator {
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
-        prop.put("client.id", "AOLgenerator");
+        prop.put("client.id", "AOLFixedGenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;

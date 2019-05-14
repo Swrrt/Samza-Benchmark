@@ -14,17 +14,17 @@ import java.util.Properties;
     Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic.
     Could start multiple generator on different host.
 */
-public class AOLgenerator {
-    private static final Logger LOG = LoggerFactory.getLogger(AOLgenerator.class);
+public class AOLFixedGenerator {
+    private static final Logger LOG = LoggerFactory.getLogger(AOLFixedGenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
     private final boolean isKeyPartition;
-    public AOLgenerator(){
+    public AOLFixedGenerator(){
         outputTopic = "AOLraw";
         bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
         isKeyPartition = false;
     }
-    public AOLgenerator(String topic, String bootstrapServer, String input3){
+    public AOLFixedGenerator(String topic, String bootstrapServer, String input3){
         outputTopic = topic;
         this.bootstrapServer = bootstrapServer;
         if(input3.equals("true") || input3.equals("True") || input3.equals("TRUE"))isKeyPartition = true;
@@ -66,7 +66,7 @@ public class AOLgenerator {
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
-        prop.put("client.id", "AOLgenerator");
+        prop.put("client.id", "AOLFixedGenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
@@ -82,8 +82,8 @@ public class AOLgenerator {
         producer.send(record);
     }
     public static void main(String[] args)throws InterruptedException{
-        AOLgenerator generator = new AOLgenerator();
-        generator = new AOLgenerator(args[0], args[1], args[2]);
+        AOLFixedGenerator generator = new AOLFixedGenerator();
+        generator = new AOLFixedGenerator(args[0], args[1], args[2]);
         int n = args.length - 4;
         String [] files = new String[n];
         for(int i=0 ; i<n ; i++){

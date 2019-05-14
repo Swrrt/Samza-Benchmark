@@ -4,43 +4,48 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.csv.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.Random;
 
 /*
-    Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic.
+    Reading AOL search data (AOL_search_data_leak_2006.zip) and send them to Kafka topic in Poisson process.
     Could start multiple generator on different host.
 */
-public class EnronGenerator {
+public class AOLPoissonGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(AOLFixedGenerator.class);
     private final String outputTopic;
     private final String bootstrapServer;
-    public EnronGenerator(){
-        outputTopic = "EnronRaw";
+    private final boolean isKeyPartition;
+    public AOLPoissonGenerator(){
+        outputTopic = "AOLraw";
         bootstrapServer = "yy04:9092,yy05:9093,yy06:9094,yy07:9095,yy08:9096";
+        isKeyPartition = false;
     }
-    public EnronGenerator(String topic, String bootstrapServer){
+    public AOLPoissonGenerator(String topic, String bootstrapServer, String input3){
         outputTopic = topic;
         this.bootstrapServer = bootstrapServer;
+        if(input3.equals("true") || input3.equals("True") || input3.equals("TRUE"))isKeyPartition = true;
+        else isKeyPartition = false;
     }
 
     public long generate(String file, long numberToGenerate, long speed)throws InterruptedException{
         Properties props = setProps();
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
-        Reader reader = null;
-        CSVParser csvParser = null;
-        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 3000000000l;
+        BufferedReader br = null;
+        FileReader fr = null;
+        Random rand = new Random();
+        long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 5000000000l;
         try {
-            reader = Files.newBufferedReader(Paths.get(file));
-            csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
-            for(CSVRecord record : csvParser) {
-                String fileName = record.get(0);
-                String message = record.get(1);
-                processEnronformat(message, producer);
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String curLine = br.readLine(); //Skip the first line of the file
+            while ((curLine = br.readLine()) != null) {
+                if(isKeyPartition)processAOLformat(curLine, producer);
+                else processAOLformatWithKey(curLine, producer);
                 line++;
                 time = System.nanoTime();
                 if(time - ltime >= signal_interval){
@@ -49,7 +54,8 @@ public class EnronGenerator {
                     ltime = time;
                     lline = line;
                 }
-                while(System.nanoTime() - time < interval);         /* Control the throughput of producing*/
+                double exponentialRandom = Math.log(1-rand.nextDouble())/(-interval);
+                while(System.nanoTime() - time < exponentialRandom);         /* Control the throughput of producing*/
                 //if(line >= 10000)break;
                 if(line >= numberToGenerate)break;
             }
@@ -63,22 +69,24 @@ public class EnronGenerator {
     public Properties setProps(){
         Properties prop = new Properties();
         prop.put("bootstrap.servers", bootstrapServer);
-        prop.put("client.id", "EnronGenerator");
+        prop.put("client.id", "AOLFixedGenerator");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return prop;
     }
-    public String processEnronEmail(String line){
-
-        return line;
+    // Round-Robin
+    public void processAOLformat(String line, KafkaProducer<String, String> producer){
+        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
+        producer.send(record);
     }
-    public void processEnronformat(String line, KafkaProducer<String, String> producer){
-        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, processEnronEmail(line));
+    // With Key
+    public void processAOLformatWithKey(String line, KafkaProducer<String, String> producer){
+        ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line.split("[\\\\s\\\\xA0]+")[0], line);
         producer.send(record);
     }
     public static void main(String[] args)throws InterruptedException{
-        EnronGenerator generator = new EnronGenerator();
-        generator = new EnronGenerator(args[0], args[1]);
+        //AOLPoissonGenerator generator = new AOLPoissonGenerator();
+        AOLPoissonGenerator generator = new AOLPoissonGenerator(args[0], args[1], args[2]);
         int n = args.length - 4;
         String [] files = new String[n];
         for(int i=0 ; i<n ; i++){
