@@ -38,7 +38,7 @@ public class AOLPoissonGenerator {
         FileReader fr = null;
         Random rand = new Random();
         //Add a overall skewness using sin function.
-        double skewnessPeriod = 20 * 1000000000l, upperBound = 2, lowerBound = 0.1;
+        double skewnessPeriod = 50 * 1000000000l, upperBound = 2, lowerBound = 0.1;
         long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 3 * 1000000000l;
         try {
             fr = new FileReader(file);
