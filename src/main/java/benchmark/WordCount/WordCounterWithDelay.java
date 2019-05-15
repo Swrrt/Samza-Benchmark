@@ -34,11 +34,11 @@ public class WordCounterWithDelay implements StreamApplication{
 
                     //Add delay to each message
                     Random rand = new Random();
-                    long mean = 10000000l, delayTimes = (long)(rand.nextGaussian() * mean) + mean;
-                    for(int i=0;i<delayTimes;i++) {
+                    long mean = 4 * 10000000l, delayTimes = (long)((rand.nextGaussian() + 0.5) * mean) + mean;
+                    for(long i=0;i<delayTimes;i++) {
                         count+=i;
                     }
-                    for(int i=0;i<delayTimes;i++) {
+                    for(long i=0;i<delayTimes;i++) {
                         count-=i;
                     }
 
