@@ -43,7 +43,7 @@ public class SamzaMetricMonitor {
         consumer.subscribe(Collections.singletonList(this.topic));
         while(true){
             try {
-                ConsumerRecords<String, String> records = consumer.poll(3000);
+                ConsumerRecords<String, String> records = consumer.poll(500);
                 for (ConsumerRecord<String, String> record : records) {
                     // sent kafka msg by http
                     // System.out.println("Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
