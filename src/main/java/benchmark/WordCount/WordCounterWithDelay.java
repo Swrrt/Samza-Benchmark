@@ -25,12 +25,15 @@ public class WordCounterWithDelay implements StreamApplication{
         OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
-                .window(Windows.keyedTumblingWindow(
+                /*.window(Windows.keyedTumblingWindow(
                         message -> message.getValue(), Duration.ofSeconds(5), () -> 0, (m, prevCount) -> prevCount + 1,
                         new StringSerde(), new IntegerSerde()), "count")
-                .map(windowPane -> {
-                    String word = windowPane.getKey().getKey();
-                    long count = windowPane.getMessage();
+                .map(windowPane -> {*/
+                .map(a -> {
+                    /*String word = windowPane.getKey().getKey();
+                    long count = windowPane.getMessage();*/
+                    String word = a.getKey();
+                    long count = a.getValue().length();
 
                     //Add delay to each message
                     Random rand = new Random();
