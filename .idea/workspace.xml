@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="" />
+    <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/WordCounterDM.properties" afterPath="$PROJECT_DIR$/src/main/config/WordCounterDM.properties" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,7 +64,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WordCounterWithDelay.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WordCounterWithDelay.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/WordCount/WordCounterWithDelay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="629">
@@ -104,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WordCounterDM.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WordCounterDM.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/config/WordCounterDM.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="725">
-              <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="36" />
+            <state relative-caret-position="538">
+              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1013,14 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounterDM.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="53" column="36" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/generator/AOLPoissonGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -1033,6 +1027,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/config/WordCounterDM.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
