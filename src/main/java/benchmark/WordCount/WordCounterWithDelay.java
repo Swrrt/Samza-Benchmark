@@ -34,7 +34,7 @@ public class WordCounterWithDelay implements StreamApplication{
 
                     //Add delay to each message
                     Random rand = new Random();
-                    long mean = 1 * 10000000l, delayTimes = (long)((rand.nextGaussian() + 0.5) * mean) + mean;
+                    long mean = 1 * 100000000l, delayTimes = /*(long)((rand.nextGaussian() + 0.5) * mean) +*/ mean;
                     for(long i=0;i<delayTimes;i++) {
                         count+=i;
                     }
