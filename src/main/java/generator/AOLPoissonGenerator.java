@@ -38,7 +38,7 @@ public class AOLPoissonGenerator {
         FileReader fr = null;
         Random rand = new Random();
         //Add a overall skewness using sin function.
-        double skewnessPeriod = 50 * 1000000000l, upperBound = 2, lowerBound = 0.1;
+        double skewnessPeriod = 30 * 1000000000l, upperBound = 2, lowerBound = 0.1;
         long lline = 0, line = 0, time = System.nanoTime(), ltime = time, interval = 1000000000l/speed /* Number of records per second*/, signal_interval = 3 * 1000000000l;
         try {
             fr = new FileReader(file);
@@ -57,11 +57,13 @@ public class AOLPoissonGenerator {
                         ltime = time;
                         lline = line;
                     }
-                    double curInterval = interval; /// ((Math.cos(time / skewnessPeriod) + 1.6)/2); // 0.3~1.3 of original speed
+                    double curInterval =  ((Math.cos(time / skewnessPeriod) + 1.6)/2); // 0.3~1.3 of original speed
                     //Gaussian distribution of short-term arrival
                     double stdDeviation = curInterval / 3;
                     double exponentialRandom = rand.nextGaussian() * stdDeviation + curInterval;
-                    while (System.nanoTime() - time < curInterval) ;         /* Control the throughput of producing*/
+                    if(exponentialRandom > curInterval * 2) exponentialRandom = curInterval * 2;
+                    if(exponentialRandom < curInterval * 0.5)exponentialRandom = curInterval * 0.5;
+                    while (System.nanoTime() - time < exponentialRandom) ;         /* Control the throughput of producing*/
                     //if(line >= 10000)break;
                     //if (line >= numberToGenerate) break;
                 }

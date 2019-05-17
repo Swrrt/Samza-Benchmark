@@ -11,7 +11,7 @@ import org.apache.samza.serializers.StringSerde;
 
 import java.util.Random;
 
-public class StateLessWithDelay implements StreamApplication{
+public class StatelessWithDelay implements StreamApplication{
     private static final String INPUT_TOPIC = "WordSplitterOutput";
     private static final String OUTPUT_TOPIC = "WordCounterOutput";
     @Override
