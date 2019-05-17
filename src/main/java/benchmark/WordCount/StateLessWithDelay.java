@@ -6,16 +6,12 @@ import org.apache.samza.operators.KV;
 import org.apache.samza.operators.MessageStream;
 import org.apache.samza.operators.OutputStream;
 import org.apache.samza.operators.StreamGraph;
-import org.apache.samza.operators.windows.Windows;
-import org.apache.samza.serializers.IntegerSerde;
 import org.apache.samza.serializers.KVSerde;
 import org.apache.samza.serializers.StringSerde;
-import org.apache.samza.storage.kv.KeyValueStore;
 
-import java.time.Duration;
 import java.util.Random;
 
-public class WordCounterWithDelay implements StreamApplication{
+public class StateLessWithDelay implements StreamApplication{
     private static final String INPUT_TOPIC = "WordSplitterOutput";
     private static final String OUTPUT_TOPIC = "WordCounterOutput";
     @Override
@@ -25,12 +21,9 @@ public class WordCounterWithDelay implements StreamApplication{
         OutputStream<KV<String, String>> outputStream = graph.getOutputStream(OUTPUT_TOPIC);
         // Split the input into multiple strings
         inputStream
-                .window(Windows.keyedTumblingWindow(
-                        message -> message.getValue(), Duration.ofSeconds(5), () -> 0, (m, prevCount) -> prevCount + 1,
-                        new StringSerde(), new IntegerSerde()), "count")
-                .map(windowPane -> {
-                    String word = windowPane.getKey().getKey();
-                    long count = windowPane.getMessage();
+                .map(a -> {
+                    String word = a.getKey();
+                    long count = a.getValue().length();
 
                     //Add delay to each message
                     Random rand = new Random();
