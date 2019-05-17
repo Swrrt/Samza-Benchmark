@@ -61,8 +61,8 @@ public class AOLPoissonGenerator {
                     //Gaussian distribution of short-term arrival
                     double stdDeviation = curInterval / 3;
                     double exponentialRandom = rand.nextGaussian() * stdDeviation + curInterval;
-                    if(exponentialRandom > curInterval * 2) exponentialRandom = curInterval * 2;
-                    if(exponentialRandom < curInterval * 0.5)exponentialRandom = curInterval * 0.5;
+                    if(exponentialRandom < curInterval * 2) exponentialRandom = curInterval * 2;
+                    if(exponentialRandom > curInterval * 0.5)exponentialRandom = curInterval * 0.5;
                     while (System.nanoTime() - time < exponentialRandom) ;         /* Control the throughput of producing*/
                     //if(line >= 10000)break;
                     //if (line >= numberToGenerate) break;
