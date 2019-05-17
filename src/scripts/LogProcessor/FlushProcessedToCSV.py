@@ -2,6 +2,12 @@ import csv
 output_file = "metricsno.csv"
 input_file = "log_no.txt"
 schema = ['Time', 'Container Id', 'Total Arrived', 'Total Processed']
+
+containerArrived = {}
+containerProcessed = {}
+containerArrivedT = {}
+containerProcessedT = {}
+
 with open(output_file, 'wb') as csvfile:
     fw = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     fw.writerow(schema)
@@ -28,6 +34,11 @@ with open(output_file, 'wb') as csvfile:
                         value = container.split('=')[1]
                         arrived[Id] = value
                         total += long(value)
+                        if(Id not in containerArrived):
+                            containerArrived[Id] = []
+                            containerArrivedT[Id] = []
+                        containerArrived[Id] += [value]
+                        containerArrivedT[Id] += [(long(time) - initialTime)/base]
                         fw.writerow([(long(time) - initialTime)/base, Id, value, ''])
                 arrived['total'] = total
                 fw.writerow([(long(time) - initialTime)/base, 'total', total, ''])
@@ -47,6 +58,11 @@ with open(output_file, 'wb') as csvfile:
                         value = container.split('=')[1]
                         total += long(value)
                         processed[Id] = value
+                        if(Id not in containerArrived):
+                            containerProcessed[Id] = []
+                            containerProcessedT[Id] = []
+                        containerProcessed[Id] += [value]
+                        containerProcessedT[Id] += [(long(time) - initialTime)/base]
                         fw.writerow([(long(time) - initialTime)/base, Id, '', value])
                 fw.writerow([(long(time) - initialTime)/base, 'total', '', total])
                 #for container in arrived:
@@ -60,5 +76,12 @@ with open(output_file, 'wb') as csvfile:
             if(counter % 100 == 0):
                 print("Processed to line:" + str(counter))
 
-
+import matplotlib.pyplot as plt
+#for Id in containerArrived:
+#    plt.plot(containerArrived[Id],containerArrivedT[Id])
+#    plot.show()
+for Id in containerProcessed:
+    plt.plot(containerProcessed[Id],containerProcessedT[Id])
+    plt.title('Container ' + Id)
+    plt.show()
 
