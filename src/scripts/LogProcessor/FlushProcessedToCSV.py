@@ -41,6 +41,12 @@ with open(output_file, 'wb') as csvfile:
                         containerArrivedT[Id] += [(long(time) - initialTime)/base]
                         fw.writerow([(long(time) - initialTime)/base, Id, value, ''])
                 arrived['total'] = total
+                Id = 'total'
+                if(Id not in containerArrived):
+                    containerArrived[Id] = []
+                    containerArrivedT[Id] = []
+                containerArrived[Id] += [value]
+                containerArrivedT[Id] += [(long(time) - initialTime)/base]
                 fw.writerow([(long(time) - initialTime)/base, 'total', total, ''])
             if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Flush' and split[5] == "Processed:"):
                 time = split[2]
@@ -64,6 +70,12 @@ with open(output_file, 'wb') as csvfile:
                         containerProcessed[Id] += [value]
                         containerProcessedT[Id] += [(long(time) - initialTime)/base]
                         fw.writerow([(long(time) - initialTime)/base, Id, '', value])
+                Id = 'total'
+                if(Id not in containerArrived):
+                    containerProcessed[Id] = []
+                    containerProcessedT[Id] = []
+                containerProcessed[Id] += [value]
+                containerProcessedT[Id] += [(long(time) - initialTime)/base]
                 fw.writerow([(long(time) - initialTime)/base, 'total', '', total])
                 #for container in arrived:
                 #if(container in processed):
@@ -77,11 +89,12 @@ with open(output_file, 'wb') as csvfile:
                 print("Processed to line:" + str(counter))
 
 import matplotlib.pyplot as plt
-#for Id in containerArrived:
-#    plt.plot(containerArrived[Id],containerArrivedT[Id])
-#    plot.show()
+for Id in containerArrived:
+    plt.plot(containerArrivedT[Id],containerArrived[Id])
+    plt.title('Container ' + Id + ' Arrived')
+    plt.show()
 for Id in containerProcessed:
-    plt.plot(containerProcessed[Id],containerProcessedT[Id])
-    plt.title('Container ' + Id)
+    plt.plot(containerProcessedT[Id],containerProcessed[Id])
+    plt.title('Container ' + Id + ' Processed')
     plt.show()
 
