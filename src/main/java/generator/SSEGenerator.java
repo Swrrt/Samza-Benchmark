@@ -49,7 +49,7 @@ class SSEGnerator {
         long interval = 0;
         int counter = 0;
         try {
-            stream = new FileReader("/root/SSE-kafka-producer/"+file+".txt");
+            stream = new FileReader(file);
             br = new BufferedReader(stream);
 //            Thread.sleep(10000);
             while ((sCurrentLine = br.readLine()) != null) {
