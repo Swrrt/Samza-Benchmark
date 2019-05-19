@@ -27,7 +27,10 @@ public class StatelessWithDelay implements StreamApplication{
 
                     //Add delay to each message
                     Random rand = new Random();
-                    long mean = 1 * 100000000l, delayTimes = /*(long)((rand.nextGaussian() + 0.5) * mean) +*/ mean;
+                    // 10000000: 100 mps
+                    long mean = 1 * 10000000l, delayTimes = (long)(rand.nextGaussian() * mean) + mean;
+                    if(delayTimes > mean * 1.5) delayTimes = (long)(mean * 1.5);
+                    if(delayTimes < mean * 0.5) delayTimes = (long)(mean * 0.5);
                     for(long i=0;i<delayTimes;i++) {
                         count+=i;
                     }

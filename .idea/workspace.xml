@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" afterPath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java" afterPath="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh" afterPath="$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,27 +60,37 @@
         <entry file="file://$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="124" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="124" />
+              <caret line="0" column="104" lean-forward="false" selection-start-line="0" selection-start-column="104" selection-end-line="0" selection-end-column="104" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SSEGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StatelessWithDelayDM.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SSEGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="91" column="54" lean-forward="true" selection-start-line="91" selection-start-column="54" selection-end-line="91" selection-end-column="54" />
+            <state relative-caret-position="952">
+              <caret line="103" column="38" lean-forward="true" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatelessWithDelay.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StatelessWithDelay.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="31" />
+            <state relative-caret-position="357">
+              <caret line="30" column="36" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -118,7 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/config/DistinctCounter.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Projection.properties" />
         <option value="$PROJECT_DIR$/src/main/config/Sample.properties" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/Projection.java" />
@@ -160,7 +169,6 @@
         <option value="$PROJECT_DIR$/src/main/config/WordCounterDM.properties" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StateLessWithDelay.java" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/WordCount/WordCounterWithDelay.java" />
-        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
         <option value="$PROJECT_DIR$/src/scripts/FlushProcessedToCSV.py" />
         <option value="$PROJECT_DIR$/src/scripts/ArrivalProcessRateToCSV.py" />
         <option value="$PROJECT_DIR$/src/main/java/generator/AOLPoissonGenerator.java" />
@@ -169,6 +177,8 @@
         <option value="$PROJECT_DIR$/src/scripts/LogProcessor/ArrivedProcessedToCSV.py" />
         <option value="$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java" />
         <option value="$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh" />
+        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java" />
       </list>
     </option>
   </component>
@@ -943,6 +953,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -973,6 +984,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -980,22 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1033,6 +1029,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="103" column="38" lean-forward="true" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="104" lean-forward="false" selection-start-line="0" selection-start-column="104" selection-end-line="0" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/metric/SamzaMetricMonitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -1041,18 +1053,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh">
+    <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="124" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="124" />
+        <state relative-caret-position="340">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="91" column="54" lean-forward="true" selection-start-line="91" selection-start-column="54" selection-end-line="91" selection-end-column="54" />
+        <state relative-caret-position="357">
+          <caret line="30" column="36" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
           <folding />
         </state>
       </provider>
