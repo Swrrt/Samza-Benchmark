@@ -23,7 +23,7 @@ class SSEGnerator {
     private static final int Order_Vol = 10;
     private static final int Sec_Code = 11;
     private static final int Trade_Dir = 22;
-
+    private static final int Last_Upd_Time = 3;
     public SSEGnerator(String input, String bootstrapServer) {
         TOPIC = input;
         Properties props = new Properties();
@@ -36,7 +36,7 @@ class SSEGnerator {
 
     }
 
-    public void generate(String file, int speed) throws InterruptedException {
+    public void generate(String file, int speed, long startPoint) throws InterruptedException {
 
         String sCurrentLine;
         List<String> textList = new ArrayList<>();
@@ -53,30 +53,35 @@ class SSEGnerator {
             br = new BufferedReader(stream);
 //            Thread.sleep(10000);
             while ((sCurrentLine = br.readLine()) != null) {
-                if (sCurrentLine.equals("end")) {
-                    counter++;
-                }
-                if (counter == speed) {
-                    start = System.nanoTime();
-                    interval = 1000000000/textList.size();
-                    for (int i=0; i<textList.size(); i++) {
-                        cur = System.nanoTime();
-                        if (textList.get(i).split("\\|").length < 10) {
-                            continue;
-                        }
-                        ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, textList.get(i).split("\\|")[Sec_Code], textList.get(i));
-                        producer.send(newRecord);
-                        while ((System.nanoTime() - cur) < interval) {}
+                String t = sCurrentLine.split("\\|")[Last_Upd_Time];
+                long time = Integer.valueOf(t.split(":")[0]) * 3600 + Integer.valueOf(t.split(":")[1]) * 60 + Integer.valueOf(t.split(":")[2]);
+                if(time > startPoint) {
+                    if (sCurrentLine.equals("end")) {
+                        counter++;
                     }
-                    //}
-                    System.out.println("size:"+String.valueOf(textList.size()));
-                    System.out.println("time:"+String.valueOf((System.nanoTime() - start)/1000000));
-                    System.out.println("interval:"+String.valueOf((System.nanoTime() - start)/(textList.size())));
-                    textList.clear();
-                    counter = 0;
-                    continue;
+                    if (counter == speed) {
+                        start = System.nanoTime();
+                        interval = 1000000000 / textList.size();
+                        for (int i = 0; i < textList.size(); i++) {
+                            cur = System.nanoTime();
+                            if (textList.get(i).split("\\|").length < 10) {
+                                continue;
+                            }
+                            ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, textList.get(i).split("\\|")[Sec_Code], textList.get(i));
+                            producer.send(newRecord);
+                            while ((System.nanoTime() - cur) < interval) {
+                            }
+                        }
+                        //}
+                        System.out.println("size:" + String.valueOf(textList.size()));
+                        System.out.println("time:" + String.valueOf((System.nanoTime() - start) / 1000000));
+                        System.out.println("interval:" + String.valueOf((System.nanoTime() - start) / (textList.size())));
+                        textList.clear();
+                        counter = 0;
+                        continue;
+                    }
+                    textList.add(sCurrentLine);
                 }
-                textList.add(sCurrentLine);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,13 +101,15 @@ class SSEGnerator {
         String TOPIC = new String("stock");
         String file = new String("partition1");
         int speed = 1;
+        long startPoint = 0;  //In second
         String bootstrapServer = "localhost:9092";
         if (args.length > 0) {
             TOPIC = args[0];
             file = args[1];
             speed = Integer.parseInt(args[2]);
-            bootstrapServer = args[3];
+            startPoint = Long.parseLong(args[3]);
+            bootstrapServer = args[4];
         }
-        new SSEGnerator(TOPIC, bootstrapServer).generate(file, speed);
+        new SSEGnerator(TOPIC, bootstrapServer).generate(file, speed, startPoint);
     }
 }
