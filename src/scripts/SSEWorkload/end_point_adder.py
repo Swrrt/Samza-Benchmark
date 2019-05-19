@@ -1,71 +1,68 @@
 import sys
+import datetime
+
+# number of partitions
+partition_number = 1
+
+# interval of end point
+interval = 1000
+
+fp_list = []
 dict = {}
-fp = open('./sortSBAll.txt')
-fp1 = open('partition1.txt', 'w+')
-fp2 = open('partition2.txt', 'w+')
-fp3 = open('partition3.txt', 'w+')
-fp4 = open('partition4.txt', 'w+')
-fp5 = open('partition5.txt', 'w+')
-fp6 = open('partition6.txt', 'w+')
+fp = open('SB_sample.txt')
+for i in range(1, partition_number+1):
+    fp_list.append(open('partition'+str(i)+'.txt', 'w+'))
 
-Order_No = 0
-Tran_Maint_Code = 1
-Last_Upd_Time = 3
-Last_Upd_Time_Dec = 4
-Order_Price = 8
-Order_Exec_Vol = 9
-Order_Vol = 10
-Sec_Code = 11
-Trade_Dir = 22
+Order_No            = 0
+Tran_Maint_Code     = 1
+Last_Upd_Date       = 2
+Last_Upd_Time       = 3
+Last_Upd_Time_Dec   = 4
+Entry_Date          = 5
+Entry_Time          = 6
+Entry_Time_Dec      = 7
+Order_Price         = 8
+Order_Exec_Vol      = 9
+Order_Vol           = 10
+Sec_Code            = 11
+PBU_ID              = 12
+Acct_ID             = 13
+Acct_Attr           = 14
+Branch_ID           = 15
+PBU_Inter_Order_No  = 16
+PBU_Inter_Txt       = 17
+Aud_Type            = 18
+Order_Type          = 19
+Trade_Restr_Type    = 20
+Order_Stat          = 21
+Trade_Dir           = 22
+Order_Restr_Type    = 23
+Short_Sell_Flag     = 24
+Credit_Type         = 25
+Stat_PBU_ID         = 26
+Order_Bal           = 27
+Trade_Flag          = 28
 
-def writeList(textList):
-    for text in textList:
-        fp.write(text)
 
 text = fp.readline()
-curTime = ["093000","093000","093000","093000","093000","093000"]
+start_time = datetime.datetime.strptime("20100913 09:15:00 0.000000", '%Y%m%d %H:%M:%S 0.%f')
+
+next_time_endpoint = start_time + datetime.timedelta(milliseconds=interval)
+endpoint_list = [next_time_endpoint] * partition_number
+
+
 while text:
     textArr = text.split("|")
-    time = textArr[Last_Upd_Time].replace(":", "")
-    if time >= "093000":
-        if int(textArr[Sec_Code]) % 6 == 0:
-            if time != curTime[0]:
-                curTime[0] = time
-                fp1.write("end\n")
-            fp1.write(text)
-        elif int(textArr[Sec_Code]) % 6 == 1:
-            if time != curTime[1]:
-                curTime[1] = time
-                fp2.write("end\n")
-            fp2.write(text)
-        elif int(textArr[Sec_Code]) % 6 == 2:
-            if time != curTime[2]:
-                curTime[2] = time
-                fp3.write("end\n")
-            fp3.write(text)
-        elif int(textArr[Sec_Code]) % 6 == 3:
-            if time != curTime[2]:
-                curTime[2] = time
-                fp4.write("end\n")
-            fp4.write(text)
-        elif int(textArr[Sec_Code]) % 6 == 4:
-            if time != curTime[2]:
-                curTime[2] = time
-                fp5.write("end\n")
-            fp5.write(text)
-        elif int(textArr[Sec_Code]) % 6 == 5:
-            if time != curTime[2]:
-                curTime[2] = time
-                fp6.write("end\n")
-            fp6.write(text)
-        else:
-            print "error"
-            sys.exit()
+    date_time_str = textArr[Last_Upd_Date] + " " + textArr[Last_Upd_Time] + " " + textArr[Last_Upd_Time_Dec][:-1]
+    order_time = datetime.datetime.strptime(date_time_str, '%Y%m%d %H:%M:%S 0.%f')
+    if order_time >= next_time_endpoint:
+        next_time_endpoint = next_time_endpoint + datetime.timedelta(milliseconds=interval)
+        for pfp in fp_list:
+            pfp.write("end\n")
+
+    fp_list[int(textArr[Sec_Code]) % partition_number].write(text)
     text = fp.readline()
+
 fp.close()
-fp1.close()
-fp2.close()
-fp3.close()
-fp4.close()
-fp5.close()
-fp6.close()
+for pfp in fp_list:
+    pfp.close()
