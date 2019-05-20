@@ -4,6 +4,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.*;
 import org.apache.log4j.Logger;
 
@@ -56,7 +58,8 @@ class SSEGnerator {
                 long time = 0;
                 if(sCurrentLine.split("\\|").length >= 10) {
                     String t = sCurrentLine.split("\\|")[Last_Upd_Time];
-                    time = Integer.valueOf(t.split(":")[0]) * 3600 + Integer.valueOf(t.split(":")[1]) * 60 + Integer.valueOf(t.split(":")[2]);
+                    System.out.println("Last upd time:!!!" + t);
+                    time = Duration.between(LocalTime.MIN, LocalTime.parse(t)).toMillis() / 1000;
                 }
                 if(time > startPoint) {
                     if (sCurrentLine.equals("end")) {
