@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" afterPath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" afterPath="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -57,8 +58,8 @@
       <file leaf-file-name="StockPriceAverage.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/config/StockPriceAverage.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="54" selection-end-line="1" selection-end-column="54" />
+            <state relative-caret-position="748">
+              <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -67,8 +68,8 @@
       <file leaf-file-name="StatelessWithDelayDM.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="54" />
+            <state relative-caret-position="538">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="48" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -172,10 +173,10 @@
         <option value="$PROJECT_DIR$/src/scripts/LogProcessor/FlushProcessedToCSV.py" />
         <option value="$PROJECT_DIR$/src/scripts/LogProcessor/ArrivalProcessRateToCSV.py" />
         <option value="$PROJECT_DIR$/src/scripts/LogProcessor/ArrivedProcessedToCSV.py" />
-        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
         <option value="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java" />
         <option value="$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh" />
         <option value="$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
         <option value="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" />
       </list>
     </option>
@@ -984,7 +985,7 @@
         <state relative-caret-position="663">
           <caret line="59" column="43" lean-forward="false" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
           <folding>
-            <element signature="e#1413#1429#0" expanded="true" />
+            <element signature="e#1413#1429#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1055,16 +1056,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="54" />
+        <state relative-caret-position="538">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="48" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/config/StockPriceAverage.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="54" lean-forward="false" selection-start-line="1" selection-start-column="54" selection-end-line="1" selection-end-column="54" />
+        <state relative-caret-position="748">
+          <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
           <folding />
         </state>
       </provider>
