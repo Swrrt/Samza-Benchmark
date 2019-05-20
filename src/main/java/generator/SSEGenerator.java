@@ -58,8 +58,8 @@ class SSEGnerator {
                 long time = 0;
                 if(sCurrentLine.split("\\|").length >= 10) {
                     String t = sCurrentLine.split("\\|")[Last_Upd_Time];
-                    System.out.println("Last upd time:!!!" + t);
                     time = Duration.between(LocalTime.MIN, LocalTime.parse(t)).toMillis() / 1000;
+                    System.out.println("Last upd time:!!!" + t + "!!! " + time);
                 }
                 if(time > startPoint) {
                     if (sCurrentLine.equals("end")) {
