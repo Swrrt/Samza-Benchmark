@@ -53,8 +53,11 @@ class SSEGnerator {
             br = new BufferedReader(stream);
 //            Thread.sleep(10000);
             while ((sCurrentLine = br.readLine()) != null) {
-                String t = sCurrentLine.split("\\|")[Last_Upd_Time];
-                long time = Integer.valueOf(t.split(":")[0]) * 3600 + Integer.valueOf(t.split(":")[1]) * 60 + Integer.valueOf(t.split(":")[2]);
+                long time = 0;
+                if(sCurrentLine.split("\\|").length >= 10) {
+                    String t = sCurrentLine.split("\\|")[Last_Upd_Time];
+                    time = Integer.valueOf(t.split(":")[0]) * 3600 + Integer.valueOf(t.split(":")[1]) * 60 + Integer.valueOf(t.split(":")[2]);
+                }
                 if(time > startPoint) {
                     if (sCurrentLine.equals("end")) {
                         counter++;
