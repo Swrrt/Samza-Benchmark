@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5e64811-224d-41d3-afd9-9726641d278f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" afterPath="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" afterPath="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" />
     </list>
@@ -55,21 +56,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StockPriceAverage.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StockPriceAverage.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/config/StockPriceAverage.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+            <state relative-caret-position="487">
+              <caret line="42" column="49" lean-forward="true" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatelessWithDelayDM.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StatelessWithDelayDM.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="48" selection-end-column="19" />
+            <state relative-caret-position="623">
+              <caret line="48" column="1" lean-forward="false" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -176,8 +177,8 @@
         <option value="$PROJECT_DIR$/src/main/java/benchmark/WordCount/StatelessWithDelay.java" />
         <option value="$PROJECT_DIR$/src/scripts/SSEWorkload/launch_SSE_generator.sh" />
         <option value="$PROJECT_DIR$/src/main/java/generator/SSEGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
         <option value="$PROJECT_DIR$/src/main/config/StockPriceAverage.properties" />
+        <option value="$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties" />
       </list>
     </option>
   </component>
@@ -1054,18 +1055,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/config/StockPriceAverage.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="48" selection-end-column="19" />
+        <state relative-caret-position="487">
+          <caret line="42" column="49" lean-forward="true" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/config/StockPriceAverage.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/config/StatelessWithDelayDM.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+        <state relative-caret-position="623">
+          <caret line="48" column="1" lean-forward="false" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
           <folding />
         </state>
       </provider>
