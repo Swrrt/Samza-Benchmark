@@ -40,19 +40,28 @@ public class StockPriceAverage implements StreamApplication {
         inputStream
                 .map(order -> {
                     String[] orderArr = order.getValue().split("\\|");
-                    return orderArr;
+                    return new KV(order.getKey(), orderArr);
                 })
-                .map(this::computeAverage)
+                .map((KV m) -> computeAverage(m))
+                .map(orderSum -> {
+                    long latency = System.nanoTime() - Long.valueOf(orderSum.getKey().split("\\|")[1]);
+                    System.out.println(latency/1000);
+                    return orderSum;
+                })
                 .sendTo(outputStream);
     }
 
-    private KV<String, String> computeAverage(String[] orderArr) {
+    private KV<String, String> computeAverage(KV m) {
+        // add payload here, if the process is not powerful enough
+        // cur = System.nanoTime();
+        // while ((System.nanoTime() - cur) < 1000) {}
+        String[] orderArr = (String[]) m.getValue();
         if (!stockAvgPriceMap.containsKey(orderArr[Sec_Code])) {
             stockAvgPriceMap.put(orderArr[Sec_Code], (float) 0);
         }
         float sum = stockAvgPriceMap.get(orderArr[Sec_Code]) + Float.parseFloat(orderArr[Order_Price]);
         stockAvgPriceMap.put(orderArr[Sec_Code], sum);
-        return new KV(orderArr[Sec_Code], String.valueOf(sum));
+        return new KV(m.getKey(), String.valueOf(sum));
     }
 
 //    public static void main(String[] args) {

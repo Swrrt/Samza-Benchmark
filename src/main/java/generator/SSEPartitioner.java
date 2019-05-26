@@ -13,7 +13,8 @@ public class SSEPartitioner implements Partitioner {
                          Cluster cluster) {
         int partitionNum = cluster.partitionCountForTopic(topic);
         int partition = 0;
-        int stockId = Integer.parseInt((String) key);
+        String combinedKey = (String) key;
+        int stockId = Integer.parseInt(combinedKey.split("\\|")[0]);
         if (stockId > 0) {
             partition = stockId % partitionNum;
         }
