@@ -33,7 +33,7 @@ class SSEGnerator {
         props.put("client.id", "ProducerExample");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
+        props.put("partitioner.class", "generator.SSEPartitioner");
         producer = new KafkaProducer<String, String>(props);
 
     }
@@ -75,8 +75,12 @@ class SSEGnerator {
                             if (textList.get(i).split("\\|").length < 10) {
                                 continue;
                             }
-                            ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, textList.get(i).split("\\|")[Sec_Code], textList.get(i));
+                            StringBuilder key = new StringBuilder(textList.get(i).split("\\|")[Sec_Code]);
+                            key.append("|");
+                            key.append(cur);
+                            ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, key.toString(), textList.get(i));
                             producer.send(newRecord);
+                            producer.flush();
                             while ((System.nanoTime() - cur) < interval) {
                             }
                         }
