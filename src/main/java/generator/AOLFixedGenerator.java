@@ -75,11 +75,13 @@ public class AOLFixedGenerator {
     public void processAOLformat(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
+        producer.flush();
     }
     // With Key
     public void processAOLformatWithKey(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line.split("[\\\\s\\\\xA0]+")[0], line);
         producer.send(record);
+        producer.flush();
     }
     public static void main(String[] args)throws InterruptedException{
         AOLFixedGenerator generator = new AOLFixedGenerator();
