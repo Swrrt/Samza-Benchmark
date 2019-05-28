@@ -133,11 +133,13 @@ public class AOLPoissonGenerator {
     public void processAOLformat(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line);
         producer.send(record);
+        producer.flush();
     }
     // With Key
     public void processAOLformatWithKey(String line, KafkaProducer<String, String> producer){
         ProducerRecord<String, String> record = new ProducerRecord<>(outputTopic, line, line);
         producer.send(record);
+        producer.flush();
     }
     public static void main(String[] args)throws InterruptedException{
         //AOLPoissonGenerator generator = new AOLPoissonGenerator();
