@@ -25,7 +25,8 @@ public class StockPriceAverage implements StreamApplication {
     private static final int Order_Vol = 10;
     private static final int Sec_Code = 11;
     private static final int Trade_Dir = 22;
-
+    private static final long LoopsForOneMilliSecond = 100000l;
+    private static final long DefaultDelay = 50; //ms
     Map<String, Float> stockAvgPriceMap = new HashMap<String, Float>();
 
     private static final String INPUT_TOPIC = "WordSplitterOutput";
@@ -40,7 +41,14 @@ public class StockPriceAverage implements StreamApplication {
         inputStream
                 .map(order -> {
                     String[] orderArr = order.getValue().split("\\|");
-                    return new KV(order.getKey(), orderArr);
+                    //Add fixed delay
+                    long t = 0;
+                    for(long i = 0; i < config.getLong("job.delay.time.ms", DefaultDelay) * LoopsForOneMilliSecond; i++){
+                        t += i;
+                    }
+                    if(t > 1) {
+                        return new KV(order.getKey(), orderArr);
+                    }else return new KV(order.getKey(), orderArr[1]);
                 })
                 .map((KV m) -> computeAverage(m))
                 .map(orderSum -> {
