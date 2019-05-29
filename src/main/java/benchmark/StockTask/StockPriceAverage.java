@@ -42,13 +42,13 @@ public class StockPriceAverage implements StreamApplication {
                 .map(order -> {
                     String[] orderArr = order.getValue().split("\\|");
                     //Add fixed delay
-                    long t = 0;
-                    /*for(long i = 0; i < config.getLong("job.delay.time.ms", DefaultDelay) * LoopsForOneMilliSecond; i++){
+                    long t = 0, loops = config.getLong("job.delay.time.ms", DefaultDelay) * LoopsForOneMilliSecond;
+                    for(long i = 0; i < loops; i++){
                         t += i;
                     }
-                    if(t > 1) {*/
+                    if(t > 1) {
                         return new KV(order.getKey(), orderArr);
-                    //}else return new KV(order.getKey(), orderArr[1]);
+                    }else return new KV(order.getKey(), orderArr[1]);
                 })
                 .map((KV m) -> computeAverage(m))
                 .sendTo(outputStream);
