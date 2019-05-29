@@ -76,8 +76,8 @@ class SSEGnerator {
                                 continue;
                             }
                             StringBuilder key = new StringBuilder(textList.get(i).split("\\|")[Sec_Code]);
-                            key.append("|");
-                            key.append(cur);
+                            //key.append("|");
+                            //key.append(cur);
                             ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, key.toString(), textList.get(i));
                             producer.send(newRecord);
                             producer.flush();
