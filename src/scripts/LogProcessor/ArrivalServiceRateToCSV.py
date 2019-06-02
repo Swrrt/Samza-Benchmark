@@ -10,9 +10,11 @@ schema = ['Time', 'Container Id', 'Arrival Rate', 'Service Rate', 'Window Estima
 containerArrivalRate = {}
 containerServiceRate = {}
 containerWindowDelay = {}
+containerResidual = {}
 containerArrivalRateT = {}
 containerServiceRateT = {}
 containerWindowDelayT = {}
+containerResidualT = {}
 initialTime = -1
 def parseContainerArrivalRate(split, fw, base):
     global initialTime
@@ -82,6 +84,28 @@ def parseContainerWindowDelay(split, fw, base):
             containerWindowDelayT[Id] += [(long(time) - initialTime)/base]
             fw.writerow([(long(time) - initialTime)/base, Id, '', '', value])
 
+def parseContainerResidual(split, fw, base):
+    global initialTime
+    time = split[2]
+    if(initialTime == -1):
+        initialTime = long(time)
+    info = "".join(split[5:]).replace(' ','')
+    info = info.replace('{','')
+    info = info.replace('}','')
+    containers = info.split(',')
+    total = 0
+    for container in containers:
+        if(len(container)>0):
+            Id = container.split('=')[0]
+            value = container.split('=')[1]
+            total += float(value)
+            if(Id not in containerResidual):
+                containerResidual[Id] = []
+                containerResidualT[Id] = []
+            containerResidual[Id] += [value]
+            containerResidualT[Id] += [(long(time) - initialTime)/base]
+            fw.writerow([(long(time) - initialTime)/base, Id, '', '', value])
+
 with open(output_file, 'wb') as csvfile:
     fw = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     fw.writerow(schema)
@@ -105,6 +129,8 @@ with open(output_file, 'wb') as csvfile:
                 parseContainerServiceRate(split, fw, base)
             if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Average' and split[5] == 'Delay:'):
                 parseContainerWindowDelay(split, fw, base)
+            if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Residual:'):
+                parseContainerResidual(split, fw, base)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -124,10 +150,22 @@ for Id in containerArrivalRate:
 for Id in containerWindowDelay:
     legend = ['Window Delay']
     fig = plt.figure(figsize=(25,15))
-    plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'b^-')
+    plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'bs-')
     plt.legend(legend, loc='upper left')
     plt.title('Container ' + Id + ' Window Delay')
     #plt.show()
     plt.grid(True)
     plt.savefig('figures/Container_'+Id+'_WindowDelay.png')
     plt.close(fig)
+
+for Id in containerResidual:
+    legend = ['Resdiual']
+    fig = plt.figure(figsize=(25,15))
+    plt.plot(containerResidualT[Id], containerResidual[Id],'b^-')
+    plt.legend(legend, loc='upper left')
+    plt.title('Container ' + Id + ' Residual')
+    #plt.show()
+    plt.grid(True)
+    plt.savefig('figures/Container_'+Id+'_Residual.png')
+    plt.close(fig)
+
