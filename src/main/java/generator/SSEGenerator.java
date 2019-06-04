@@ -123,7 +123,7 @@ class SSEGnerator {
         long begin = System.currentTimeMillis();
         try {
             System.out.println("warm up start...");
-            stream = new FileReader("/root/SSE-kafka-producer/" + file + ".txt");
+            stream = new FileReader(file);
             br = new BufferedReader(stream);
             interval = 1000000000 / speed;
             start = System.nanoTime();

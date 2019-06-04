@@ -1,1 +1,2 @@
+#./generator.sh TopicName File TimeRate StartPoint WarmUpSpeed WarmUpPeriod
 java -cp target/benchmark-0.0.1-jar-with-dependencies.jar generator.SSEGnerator Stock ~/partition1.txt 1 0 20 10000 yy07:9095,yy08:9096
