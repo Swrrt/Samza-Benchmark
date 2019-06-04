@@ -173,16 +173,20 @@ class SSEGnerator {
         String file = new String("partition1");
         int speed = 1;
         long startPoint = 0;  //In second
+        long warmupPeriod = 10000;
+        int warmupSpeed = 20;
         String bootstrapServer = "localhost:9092";
         if (args.length > 0) {
             TOPIC = args[0];
             file = args[1];
             speed = Integer.parseInt(args[2]);
             startPoint = Long.parseLong(args[3]);
-            bootstrapServer = args[4];
+            warmupSpeed = Integer.parseInt(args[4]);
+            warmupPeriod = Long.parseLong(args[5]);
+            bootstrapServer = args[6];
         }
         SSEGnerator generator = new SSEGnerator(TOPIC, bootstrapServer);
-        generator.warmup(file, 100, 100000);
+        generator.warmup(file, warmupSpeed, warmupPeriod); //period(ms)
         generator.generate(file, speed, startPoint);
     }
 }
