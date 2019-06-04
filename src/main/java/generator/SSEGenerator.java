@@ -109,7 +109,66 @@ class SSEGnerator {
         //logger.info("LatencyLog: " + String.valueOf(System.currentTimeMillis() - time));
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public void warmup(String file, int speed, long period) throws IOException {
+        String sCurrentLine;
+        List<String> textList = new ArrayList<>();
+        FileReader stream = null;
+        // // for loop to generate message
+        BufferedReader br = null;
+        int sent_sentences = 0;
+        long cur = 0;
+        long start = 0;
+        long interval = 0;
+        int counter = 0;
+        long begin = System.currentTimeMillis();
+        try {
+            System.out.println("warm up start...");
+            stream = new FileReader("/root/SSE-kafka-producer/" + file + ".txt");
+            br = new BufferedReader(stream);
+            interval = 1000000000 / speed;
+            start = System.nanoTime();
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                if (System.currentTimeMillis() - begin < period) {
+
+                    cur = System.nanoTime();
+                    if (sCurrentLine.equals("end")) {
+                        continue;
+                    }
+
+                    if (sCurrentLine.split("\\|").length < 10) {
+                        continue;
+                    }
+
+                    ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, sCurrentLine.split("\\|")[Sec_Code], sCurrentLine);
+                    producer.send(newRecord);
+                    counter++;
+
+                    while ((System.nanoTime() - cur) < interval) {
+                    }
+                    if (System.nanoTime() - start >= 1000000000) {
+                        System.out.println("output rate: " + counter);
+                        counter = 0;
+                        start = System.nanoTime();
+                    }
+                } else {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(stream != null) stream.close();
+                if(br != null) br.close();
+            } catch(IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        producer.close();
+    }
+
+    public static void main(String[] args) throws InterruptedException, IOException {
         String TOPIC = new String("stock");
         String file = new String("partition1");
         int speed = 1;
@@ -122,6 +181,8 @@ class SSEGnerator {
             startPoint = Long.parseLong(args[3]);
             bootstrapServer = args[4];
         }
-        new SSEGnerator(TOPIC, bootstrapServer).generate(file, speed, startPoint);
+        SSEGnerator generator = new SSEGnerator(TOPIC, bootstrapServer);
+        generator.warmup(file, 100, 100000);
+        generator.generate(file, speed, startPoint);
     }
 }

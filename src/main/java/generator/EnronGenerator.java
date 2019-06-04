@@ -1,10 +1,11 @@
 package generator;
 
+import org.apache.commons.csv.*;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.csv.*;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
