@@ -165,7 +165,6 @@ class SSEGnerator {
                 ex.printStackTrace();
             }
         }
-        producer.close();
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
