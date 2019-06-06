@@ -26,6 +26,9 @@ overallRealWindowDelayT = []
 migrationDecisionTime = {}
 migrationDeployTime = {}
 
+scalingDecisionTime = {}
+scalingDeployTime = {}
+
 initialTime = -1
 def parseContainerArrivalRate(split, fw, base):
     global initialTime
@@ -197,6 +200,20 @@ with open(output_file, 'wb') as csvfile:
                     migrationDecisionTime[tgt] = []
                 migrationDecisionTime[tgt] += [-time]
 
+            if (split[0] == 'MigrateLargestByNumberScaler:' and split[3] == 'scale' and split[4] == 'out'):
+                src = split[-1]
+                time = lines[i+3].rstrip().split(' ')[2]
+                time = (long(time) - initialTime)/base
+                tgt = str(len(lines[i+3].rstrip().split(' ')) - 5 + 1).zfill(6)
+                if(src not in migrationDecisionTime):
+                    migrationDecisionTime[src] = []
+                migrationDecisionTime[src] += [time]
+                if(tgt not in migrationDecisionTime):
+                    migrationDecisionTime[tgt] = []
+                migrationDecisionTime[tgt] += [-time]
+                print(src + ' !!! ' + tgt)
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -234,6 +251,8 @@ for Id in containerArrivalRate:
     plt.xlabel('Time (ms)')
     plt.ylabel('Rate (messages per second)')
     plt.title('Container ' + Id + ' Arrival and Service Rate')
+    axes = plt.gca()
+    axes.set_xlim([0,250000])
     #plt.show()
     plt.grid(True)
     plt.savefig('figures/Container_'+Id+'_ArrivalAndServiceRate.png')
@@ -254,8 +273,8 @@ for Id in containerWindowDelay:
     plt.legend(legend, loc='upper left')
     plt.xlabel('Time (ms)')
     plt.ylabel('Delay (ms)')
-    #axes = plt.gca()
-    #axes.set_ylim([0,200])
+    axes = plt.gca()
+    axes.set_xlim([0,250000])
     plt.title('Container ' + Id + ' Window Delay')
     #plt.show()
     plt.grid(True)
@@ -282,6 +301,8 @@ for Id in containerResidual:
     plt.title('Container ' + Id + ' Residual')
     #plt.show()
     plt.grid(True)
+    axes = plt.gca()
+    axes.set_ylim([0,1000])
     plt.savefig('figures/Container_'+Id+'_Residual.png')
     plt.close(fig)
 
