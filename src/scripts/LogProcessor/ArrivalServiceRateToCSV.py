@@ -188,6 +188,8 @@ with open(output_file, 'wb') as csvfile:
                 parseContainerWindowDelay(split, fw, base)
             if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Residual:'):
                 parseContainerResidual(split, fw, base)
+
+            #Add migration marker
             if (split[0] == 'MigratingOnceBalancer:' and split[2] == 'best' and split[-1] <> '[]'):
                 src = split[9]
                 tgt = split[12][:-1]
@@ -199,6 +201,7 @@ with open(output_file, 'wb') as csvfile:
                 if(tgt not in migrationDecisionTime):
                     migrationDecisionTime[tgt] = []
                 migrationDecisionTime[tgt] += [-time]
+                print(src + ' !!! ' + tgt)
 
             if (split[0] == 'MigrateLargestByNumberScaler:' and split[3] == 'scale' and split[4] == 'out'):
                 src = split[-1]
@@ -211,7 +214,23 @@ with open(output_file, 'wb') as csvfile:
                 if(tgt not in migrationDecisionTime):
                     migrationDecisionTime[tgt] = []
                 migrationDecisionTime[tgt] += [-time]
-                print(src + ' !!! ' + tgt)
+
+
+            if (split[0] == 'MixedLoadBalanceManager,' and split[5] == 'deployed!' and split[6] <> 'task'):
+                src = split[8][:6]
+                time = split[2]
+                time = (long(time) - initialTime)/base
+                if(src not in migrationDeployTime):
+                    migrationDeployTime[src] = []
+                migrationDeployTime[src] += [time]
+
+            if (split[0] == 'MixedLoadBalanceManager,' and split[5] == 'deployed!' and split[6] == 'task'):
+                tgt = split[-1][:6]
+                time = split[2]
+                time = (long(time) - initialTime)/base
+                if(tgt not in migrationDeployTime):
+                    migrationDeployTime[tgt] = []
+                migrationDeployTime[tgt] += [-time]
 
 
 import numpy as np
@@ -235,51 +254,76 @@ def addMigrationLine(Id, ly):
             Y += [ly]
             lines += [[X, Y, 'r']]
 
+    for i in range(len(migrationDeployTime[Id])):
+        if(migrationDeployTime[Id][i] > 0): #Migrate out
+            X = [migrationDeployTime[Id][i]]
+            X += [migrationDeployTime[Id][i]]
+            Y = [0]
+            Y += [ly]
+            lines += [[X, Y, 'b']]
+        else:
+            X = [-migrationDeployTime[Id][i]]
+            X += [-migrationDeployTime[Id][i]]
+            Y = [0]
+            Y += [ly]
+            lines += [[X, Y, 'y']]
+
     return lines
 
+import collections
 #Arrival Rate and Processing Rate
-for Id in containerArrivalRate:
+numberOfContainers = len(containerArrivalRate)
+index = 1
+fig = plt.figure(figsize=(45, 5 * numberOfContainers))
+sortedIds = sorted(containerArrivalRate)
+for Id in sortedIds:
+    print('Draw arrival rate: {0} {1}'.format(index, Id))
+    plt.subplot(numberOfContainers, 1, index)
+    index += 1
     legend = ['Arrival Rate', 'Processing Rate']
-    fig = plt.figure(figsize=(25,15))
     plt.plot(containerArrivalRateT[Id], containerArrivalRate[Id],'r^-',containerServiceRateT[Id],containerServiceRate[Id],'bs-')
-
     lines = addMigrationLine(Id, 1000)
     for line in lines:
-        plt.plot(line[0], line[1], linewidth=6.0, color=line[2])
-
+        plt.plot(line[0], line[1], linewidth=3.0, color=line[2])
     plt.legend(legend, loc='upper left')
     plt.xlabel('Time (ms)')
     plt.ylabel('Rate (messages per second)')
     plt.title('Container ' + Id + ' Arrival and Service Rate')
     axes = plt.gca()
-    axes.set_xlim([0,250000])
+    axes.set_xlim([50000,450000])
+    axes.set_ylim([0,500])
     #plt.show()
     plt.grid(True)
-    plt.savefig('figures/Container_'+Id+'_ArrivalAndServiceRate.png')
-    plt.close(fig)
+plt.savefig('figures/ContainerArrivalAndServiceRate.png')
+plt.close(fig)
 
-
-for Id in containerWindowDelay:
+fig = plt.figure(figsize=(45, 5 * numberOfContainers))
+index = 1
+sortedIds = sorted(containerWindowDelay)
+for Id in sortedIds:
+    print('Draw window delay: {0} {1}'.format(index, Id))
+    plt.subplot(numberOfContainers, 1, index)
+    index += 1
     readContainerRealWindowDelay(Id)
     legend = ['Window Delay', 'Real Window Delay']
-    fig = plt.figure(figsize=(25,15))
+    #fig = plt.figure(figsize=(25,15))
     plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'bs', containerRealWindowDelayT[Id], containerRealWindowDelay[Id], 'r^')
-
     lines = addMigrationLine(Id, 50)
     for line in lines:
-        plt.plot(line[0], line[1], linewidth=6.0, color=line[2])
-
-
+        plt.plot(line[0], line[1], linewidth=3.0, color=line[2])
     plt.legend(legend, loc='upper left')
     plt.xlabel('Time (ms)')
     plt.ylabel('Delay (ms)')
     axes = plt.gca()
-    axes.set_xlim([0,250000])
+    axes.set_xlim([50000,450000])
+    axes.set_ylim([0,500])
     plt.title('Container ' + Id + ' Window Delay')
     #plt.show()
     plt.grid(True)
-    plt.savefig('figures/Container_'+Id+'_WindowDelay.png')
-    plt.close(fig)
+plt.savefig('figures/ContainerWindowDelay.png')
+plt.close(fig)
+
+
 legend = ['Window Delay', 'Real Window Delay']
 fig = plt.figure(figsize=(25,15))
 plt.plot(overallWindowDelayT,overallWindowDelay,'bs')#, containerRealWindowDelayT[Id], containerRealWindowDelay[Id], 'r^')
@@ -293,16 +337,23 @@ plt.grid(True)
 plt.savefig('figures/OverallWindowDelay.png')
 plt.close(fig)
 
-for Id in containerResidual:
+fig = plt.figure(figsize=(45, 5 * numberOfContainers))
+index = 1
+sortedIds = sorted(containerResidual)
+for Id in sortedIds:
+    print('Draw residual: {0} {1}'.format(index, Id))
+    plt.subplot(numberOfContainers, 1, index)
+    index += 1
     legend = ['Resdiual']
-    fig = plt.figure(figsize=(25,15))
+    #fig = plt.figure(figsize=(25,15))
     plt.plot(containerResidualT[Id], containerResidual[Id],'b^-')
     plt.legend(legend, loc='upper left')
     plt.title('Container ' + Id + ' Residual')
     #plt.show()
     plt.grid(True)
     axes = plt.gca()
+    axes.set_xlim([50000,450000])
     axes.set_ylim([0,1000])
-    plt.savefig('figures/Container_'+Id+'_Residual.png')
-    plt.close(fig)
+plt.savefig('figures/ContainerResidual.png')
+plt.close(fig)
 
