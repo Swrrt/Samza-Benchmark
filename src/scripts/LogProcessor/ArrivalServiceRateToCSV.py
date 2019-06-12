@@ -15,6 +15,8 @@ containerRealWindowDelay = {}
 containerResidual = {}
 containerArrivalRateT = {}
 containerServiceRateT = {}
+containerLongtermDelay = {}
+containerLongtermDelayT = {}
 containerWindowDelayT = {}
 containerRealWindowDelayT = {}
 containerResidualT = {}
@@ -104,6 +106,30 @@ def parseContainerWindowDelay(split, fw, base):
             elif(overallWindowDelay[-1] < float(value)):
                 overallWindowDelay[-1] = float(value)
 
+def parseContainerLongtermDelay(split, fw, base):
+    global initialTime
+    time = split[2]
+    if(initialTime == -1):
+        initialTime = long(time)
+    info = "".join(split[6:]).replace(' ','')
+    info = info.replace('{','')
+    info = info.replace('}','')
+    containers = info.split(',')
+    total = 0
+    for container in containers:
+        if(len(container)>0):
+            Id = container.split('=')[0]
+            value = container.split('=')[1]
+            total += float(value)
+            if(Id not in containerLongtermDelay):
+                containerLongtermDelay[Id] = []
+                containerLongtermDelayT[Id] = []
+            value = float(value)
+            if(value>500): value = 500
+            elif(value<0): value = 0
+            containerLongtermDelay[Id] += [float(value)]
+            containerLongtermDelayT[Id] += [(long(time) - initialTime)/base]
+            fw.writerow([(long(time) - initialTime)/base, Id, '', '', value])
 
 def parseContainerResidual(split, fw, base):
     global initialTime
@@ -186,6 +212,8 @@ with open(output_file, 'wb') as csvfile:
                 parseContainerServiceRate(split, fw, base)
             if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Average' and split[5] == 'Delay:'):
                 parseContainerWindowDelay(split, fw, base)
+            if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Longterm' and split[5] == 'Delay:'):
+                parseContainerLongtermDelay(split, fw, base)
             if (split[0] == 'MixedLoadBalanceManager,' and split[4] == 'Residual:'):
                 parseContainerResidual(split, fw, base)
 
@@ -252,8 +280,9 @@ def addMigrationLine(Id, ly):
             X += [-migrationDecisionTime[Id][i]]
             Y = [0]
             Y += [ly]
-            lines += [[X, Y, 'r']]
-
+            lines += [[X, Y, 'y']]
+    if(Id not in migrationDeployTime):
+        return lines
     for i in range(len(migrationDeployTime[Id])):
         if(migrationDeployTime[Id][i] > 0): #Migrate out
             X = [migrationDeployTime[Id][i]]
@@ -266,7 +295,7 @@ def addMigrationLine(Id, ly):
             X += [-migrationDeployTime[Id][i]]
             Y = [0]
             Y += [ly]
-            lines += [[X, Y, 'y']]
+            lines += [[X, Y, 'r']]
 
     return lines
 
@@ -291,7 +320,7 @@ for Id in sortedIds:
     plt.title('Container ' + Id + ' Arrival and Service Rate')
     axes = plt.gca()
     axes.set_xlim([50000,450000])
-    axes.set_ylim([0,500])
+    axes.set_ylim([0,1000])
     #plt.show()
     plt.grid(True)
 plt.savefig('figures/ContainerArrivalAndServiceRate.png')
@@ -305,9 +334,9 @@ for Id in sortedIds:
     plt.subplot(numberOfContainers, 1, index)
     index += 1
     readContainerRealWindowDelay(Id)
-    legend = ['Window Delay', 'Real Window Delay']
+    legend = ['Window Delay', 'Real Window Delay', 'Long Term Delay']
     #fig = plt.figure(figsize=(25,15))
-    plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'bs', containerRealWindowDelayT[Id], containerRealWindowDelay[Id], 'r^')
+    plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'bs', containerRealWindowDelayT[Id], containerRealWindowDelay[Id], 'r^', containerLongtermDelayT[Id], containerLongtermDelay[Id], 'cd')
     lines = addMigrationLine(Id, 50)
     for line in lines:
         plt.plot(line[0], line[1], linewidth=3.0, color=line[2])
