@@ -25,6 +25,9 @@ overallRealWindowDelay = []
 overallWindowDelayT = []
 overallRealWindowDelayT = []
 
+userWindowSize = 2000
+ourWindowSize = 2000
+
 migrationDecisionTime = {}
 migrationDeployTime = {}
 
@@ -125,7 +128,7 @@ def parseContainerLongtermDelay(split, fw, base):
                 containerLongtermDelay[Id] = []
                 containerLongtermDelayT[Id] = []
             value = float(value)
-            if(value>500): value = 500
+            if(value>1000): value = 1000
             elif(value<0): value = 0
             containerLongtermDelay[Id] += [float(value)]
             containerLongtermDelayT[Id] += [(long(time) - initialTime)/base]
@@ -154,7 +157,7 @@ def parseContainerResidual(split, fw, base):
             fw.writerow([(long(time) - initialTime)/base, Id, '', '', value])
 
 def readContainerRealWindowDelay(Id):
-    global initialTime, overallWindowDelayT, overallWindowDelay, overallRealWindowDelayT, overallRealWindowDelay
+    global initialTime, overallWindowDelayT, overallWindowDelay, overallRealWindowDelayT, overallRealWindowDelay, userWindowSize
     fileName = "container" + Id + ".txt"
     counter = 1
     processed = 0
@@ -176,12 +179,12 @@ def readContainerRealWindowDelay(Id):
                 time = (long(time) - initialTime)/base
                 queue += [[time, float(split[1])]]
                 total += float(split[1])
-                while(queue[0][0] < time - 10000):
+                while(queue[0][0] < time - userWindowSize):
                     total -= queue[0][1]
                     queue = queue[1:]
 
 
-                if(lastTime <= time - 500):
+                if(lastTime <= time - 400 and len(queue) > 0):
                     if(Id not in containerRealWindowDelay):
                         containerRealWindowDelayT[Id] = []
                         containerRealWindowDelay[Id] = []
@@ -231,11 +234,23 @@ with open(output_file, 'wb') as csvfile:
                 migrationDecisionTime[tgt] += [-time]
                 print(src + ' !!! ' + tgt)
 
-            if (split[0] == 'MigrateLargestByNumberScaler:' and split[3] == 'scale' and split[4] == 'out'):
+            if (len(split) > 5 and split[0] == 'MigrateLargestByNumberScaler:' and split[1] == 'Scale' and split[2] == 'out' and split[5] == 'from'):
                 src = split[-1]
+                time = lines[i+4].rstrip().split(' ')[2]
+                time = (long(time) - initialTime)/base
+                tgt = lines[i+1].rstrip().split(' ')[-1]
+                if(src not in migrationDecisionTime):
+                    migrationDecisionTime[src] = []
+                migrationDecisionTime[src] += [time]
+                if(tgt not in migrationDecisionTime):
+                    migrationDecisionTime[tgt] = []
+                migrationDecisionTime[tgt] += [-time]
+
+            if (split[0] == 'MigrateLargestByNumberScaler:' and split[1] == 'Scale' and split[2] == 'in!'):
+                src = split[4]
                 time = lines[i+3].rstrip().split(' ')[2]
                 time = (long(time) - initialTime)/base
-                tgt = str(len(lines[i+3].rstrip().split(' ')) - 5 + 1).zfill(6)
+                tgt = split[6]
                 if(src not in migrationDecisionTime):
                     migrationDecisionTime[src] = []
                 migrationDecisionTime[src] += [time]
@@ -246,6 +261,7 @@ with open(output_file, 'wb') as csvfile:
 
             if (split[0] == 'MixedLoadBalanceManager,' and split[5] == 'deployed!' and split[6] <> 'task'):
                 src = split[8][:6]
+                print('Migrate out from ' + src)
                 time = split[2]
                 time = (long(time) - initialTime)/base
                 if(src not in migrationDeployTime):
@@ -337,7 +353,7 @@ for Id in sortedIds:
     legend = ['Window Delay', 'Real Window Delay', 'Long Term Delay']
     #fig = plt.figure(figsize=(25,15))
     plt.plot(containerWindowDelayT[Id], containerWindowDelay[Id],'bs', containerRealWindowDelayT[Id], containerRealWindowDelay[Id], 'r^', containerLongtermDelayT[Id], containerLongtermDelay[Id], 'cd')
-    lines = addMigrationLine(Id, 50)
+    lines = addMigrationLine(Id, 100)
     for line in lines:
         plt.plot(line[0], line[1], linewidth=3.0, color=line[2])
     plt.legend(legend, loc='upper left')
@@ -345,7 +361,7 @@ for Id in sortedIds:
     plt.ylabel('Delay (ms)')
     axes = plt.gca()
     axes.set_xlim([50000,450000])
-    axes.set_ylim([0,500])
+    axes.set_ylim([0,1000])
     plt.title('Container ' + Id + ' Window Delay')
     #plt.show()
     plt.grid(True)

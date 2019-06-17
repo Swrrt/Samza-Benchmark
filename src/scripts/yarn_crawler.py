@@ -28,7 +28,7 @@ def sliding_window_ground_truth(ground_truth_arr):
 
 if __name__ == "__main__":
     suffix = "/stdout/?start=0"
-    app_url = "http://192.168.0.36:8088/cluster/appattempt/appattempt_1554085371594_0318_000001"
+    app_url = "http://192.168.0.36:8088/cluster/appattempt/appattempt_1554085371594_0383_000001"
     response = urllib.request.urlopen(app_url)
     # parse html
     html = response.read().decode('utf-8')
