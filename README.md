@@ -1,6 +1,8 @@
-# Samza-Benchmark
-Benchmark Applications 
+## applications for samza 1.0.0
 
-### alter topic producer timestamp to LogApendTIme
+run application command:
+```
+./bin/run-app.sh --config-factory=org.apache.samza.config.factories.PropertiesConfigFactory --config-path=file://$PWD/config/wordcount.properties
+```
 
-``` bin/kafka-topics.sh --alter --zookeeper localhost:2181 --topic metrics --config message.timestamp.type=LogAppendTime
+# cs5101-experiment

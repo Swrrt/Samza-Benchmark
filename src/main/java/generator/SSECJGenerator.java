@@ -9,24 +9,38 @@ import java.util.*;
 /**
  * SSE generaor
  */
-public class SSEGenerator {
+public class SSECJGenerator {
 
     private String TOPIC;
 
     private static KafkaProducer<String, String> producer;
 
-    private static final int Order_No = 0;
-    private static final int Tran_Maint_Code = 1;
-    private static final int Order_Price = 8;
-    private static final int Order_Exec_Vol = 9;
-    private static final int Order_Vol = 10;
-    private static final int Sec_Code = 11;
-    private static final int Trade_Dir = 22;
+    private static final int Trade_No = 0;
+    private static final int Trade_Date = 1;
+    private static final int Trade_Time = 2;
+    private static final int Trade_Time_Dec =3;
+    private static final int Order_Time = 4;
+    private static final int Order_Time_Dec = 5;
+    private static final int Order_No = 6;
+    private static final int Trade_Price = 7;
+    private static final int Trade_Amt = 8;
+    private static final int Trade_Vol = 9;
+    private static final int Sec_Code = 10;
+    private static final int PBU_ID = 11;
+    private static final int Acct_ID = 12;
+    private static final int Trade_Dir= 13;
+    private static final int Order_PrtFil_Code= 14;
+    private static final int Tran_Type= 15;
+    private static final int Trade_Type = 16;
+    private static final int Proc_Type = 17;
+    private static final int Order_Type = 18;
+    private static final int Stat_PBU_ID = 19;
+    private static final int Credit_Type = 20;
 
-    public SSEGenerator(String input) {
+    public SSECJGenerator(String input) {
         TOPIC = input;
         Properties props = new Properties();
-        props.put("bootstrap.servers", "kafka-server-1:9092");
+        props.put("bootstrap.servers", "localhost:9092");
         props.put("client.id", "ProducerExample");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -48,7 +62,7 @@ public class SSEGenerator {
         long interval = 0;
         int counter = 0;
         try {
-            stream = new FileReader("/home/myc/workspace_backup/"+file+".txt");
+            stream = new FileReader("/root/SSE-kafka-producer/"+file+".txt");
             br = new BufferedReader(stream);
 
             interval = 1000000000/speed;
@@ -91,15 +105,15 @@ public class SSEGenerator {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String TOPIC = new String("stock");
-        String file = new String("partition1");
+        String TOPIC = new String("stock_order");
+        String file = new String("sort_CJ");
         int speed = 1;
         if (args.length > 0) {
-            TOPIC = args[0];
-            file = args[1];
-            speed = Integer.parseInt(args[2]);
+//            TOPIC = args[0];
+//            file = args[1];
+            speed = Integer.parseInt(args[0]);
         }
-        new SSEGenerator(TOPIC).generate(file, speed);
+        new SSECJGenerator(TOPIC).generate(file, speed);
     }
 }
 
