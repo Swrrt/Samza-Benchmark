@@ -92,16 +92,12 @@ public class WordCount implements StreamApplication {
                 .sendTo(counts);
     }
 
-    public static void main(String[] args) {
-        CommandLine cmdLine = new CommandLine();
-        OptionSet options = cmdLine.parser().parse(args);
-        Config config = cmdLine.loadConfig(options);
-        Map<String, String> mergedConfig = new HashMap<>(config);
-        mergedConfig.put("splitPart", String.valueOf(1));
-        mergedConfig.put("job.name", "wrd-count"+1);
-        Config newConfig = Util.rewriteConfig(new MapConfig(mergedConfig));
-        LocalApplicationRunner runner = new LocalApplicationRunner(new WordCount(), newConfig);
-        runner.run();
-        runner.waitForFinish();
-    }
+    //public static void main(String[] args) {
+        //CommandLine cmdLine = new CommandLine();
+        //OptionSet options = cmdLine.parser().parse(args);
+        //Config config = cmdLine.loadConfig(options);
+        //LocalApplicationRunner runner = new LocalApplicationRunner(new WordCount(), Config);
+        //runner.run();
+        //runner.waitForFinish();
+    /*}*/
 }
