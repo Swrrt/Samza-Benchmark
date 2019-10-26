@@ -185,7 +185,7 @@ class SSEGenerator {
             warmupPeriod = Long.parseLong(args[5]);
             bootstrapServer = args[6];
         }
-        SSEGnerator generator = new SSEGenerator(TOPIC, bootstrapServer);
+        SSEGenerator generator = new SSEGenerator(TOPIC, bootstrapServer);
         generator.warmup(file, warmupSpeed, warmupPeriod); //period(ms)
         generator.generate(file, speed, startPoint);
     }
