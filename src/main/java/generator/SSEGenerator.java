@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 /**
  * SSE generaor
  */
-class SSEGnerator {
+class SSEGenerator {
 
     private String TOPIC;
 
