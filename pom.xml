@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.lab</groupId>
-    <artifactId>benchmark</artifactId>
+    <groupId>samzaapp</groupId>
+    <artifactId>wordcount</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
     <name>Samza benchmark</name>
-    <description>Benchmark applications and data generators</description>
+    <description>A self made benchmark using Samza</description>
 
     <dependencies>
         <dependency>
@@ -54,6 +54,12 @@
             <artifactId>samza-kafka_2.11</artifactId>
             <version>${samza.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.samza</groupId>
+            <artifactId>samza-streamswitch_2.11</artifactId>
+            <version>${samza.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
@@ -114,16 +120,7 @@
             <artifactId>hadoop-yarn-common</artifactId>
             <version>${hadoop.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180130</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.6</version>
-        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -134,15 +131,16 @@
     <properties>
         <!-- maven specific properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <samza.version>1.0.0</samza.version>
+        <!--<samza.version>1.0.0</samza.version>-->
+        <samza.version>1.0.0-StreamSwitch</samza.version>
         <hadoop.version>2.6.1</hadoop.version>
     </properties>
 
     <developers>
         <developer>
-            <name>She Zhaochen</name>
-            <email>swrrt.11@gmail.com</email>
-            <timezone>8</timezone>
+            <name>Chris Riccomini</name>
+            <email>criccomini@gmail.com</email>
+            <timezone>-8</timezone>
         </developer>
     </developers>
 
@@ -153,6 +151,17 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/linkedin/hello-samza.git</connection>
+        <developerConnection>scm:git:git@github.com:linkedin/hello-samza.git</developerConnection>
+        <url>http://github.com/linkedin/hello-samza/</url>
+    </scm>
+
+    <issueManagement>
+        <system>github</system>
+        <url>http://github.com/linkedin/hello-samza/issues</url>
+    </issueManagement>
 
     <repositories>
         <repository>
@@ -184,7 +193,7 @@
     </pluginRepositories>
 
     <build>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
