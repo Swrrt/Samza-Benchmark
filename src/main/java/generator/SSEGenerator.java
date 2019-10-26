@@ -26,7 +26,7 @@ class SSEGenerator {
     private static final int Sec_Code = 11;
     private static final int Trade_Dir = 22;
     private static final int Last_Upd_Time = 3;
-    public SSEGnerator(String input, String bootstrapServer) {
+    public SSEGenerator(String input, String bootstrapServer) {
         TOPIC = input;
         Properties props = new Properties();
         props.put("bootstrap.servers", bootstrapServer);
