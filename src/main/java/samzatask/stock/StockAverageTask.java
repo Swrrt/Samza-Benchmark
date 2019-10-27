@@ -13,6 +13,7 @@ import org.apache.samza.task.StreamTask;
 import org.apache.samza.task.TaskCoordinator;
 
 import java.io.Serializable;
+import org.apache.samza.config.Config;
 
 /**
  * This is a simple task that writes each message to a state store and prints them all out on reload.
@@ -29,6 +30,14 @@ public class StockAverageTask implements StreamTask, InitableTask, Serializable 
     private static final int Sec_Code = 11;
     private static final int Trade_Dir = 22;
 
+    private final Config config;
+
+    private static final long LoopsForOneMilliSecond = 100000l;
+    private static final long DefaultDelay = 50; //ms
+
+    public StockAverageTask(Config config) {
+        this.config = config;
+    }
 
     private static final SystemStream OUTPUT_STREAM = new SystemStream("kafka", "stock_price");
     private KeyValueStore<String, String> stockAvgPriceMap;
@@ -52,6 +61,12 @@ public class StockAverageTask implements StreamTask, InitableTask, Serializable 
         String stockOrder = (String) envelope.getMessage();
         String[] orderArr = stockOrder.split("\\|");
         String average = computeAverage(orderArr);
+
+        long t = 0, loops = config.getLong("job.delay.time.ms", DefaultDelay) * LoopsForOneMilliSecond;
+        for(long i = 0; i < loops; i++){
+            t += i;
+        }
+
         collector.send(new OutgoingMessageEnvelope(OUTPUT_STREAM, average));
     }
 

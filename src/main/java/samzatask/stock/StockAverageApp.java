@@ -53,6 +53,6 @@ public class StockAverageApp implements TaskApplication {
         taskApplicationDescriptor.withOutputStream(outputDescriptor);
 
         // Set the task factory
-        taskApplicationDescriptor.withTaskFactory((StreamTaskFactory) () -> new StockAverageTask());
+        taskApplicationDescriptor.withTaskFactory((StreamTaskFactory) () -> new StockAverageTask(taskApplicationDescriptor.getConfig()));
     }
 }
