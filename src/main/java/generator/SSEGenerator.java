@@ -78,6 +78,7 @@ class SSEGenerator {
                             StringBuilder key = new StringBuilder(textList.get(i).split("\\|")[Sec_Code]);
                             //key.append("|");
                             //key.append(cur);
+
                             ProducerRecord<String, String> newRecord = new ProducerRecord<>(TOPIC, key.toString(), textList.get(i));
                             producer.send(newRecord);
                             producer.flush();
@@ -165,12 +166,11 @@ class SSEGenerator {
                 ex.printStackTrace();
             }
         }
-        producer.close();
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
         String TOPIC = new String("stock");
-        String file = new String("partition1");
+        String file = new String("/root/SSE-kafka-producer/partition1.txt");
         int speed = 1;
         long startPoint = 0;  //In second
         long warmupPeriod = 10000;
