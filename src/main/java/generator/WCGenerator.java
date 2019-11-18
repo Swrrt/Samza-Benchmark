@@ -33,22 +33,22 @@ public class WCGenerator {
     public WCGenerator(String input) {
         TOPIC = input;
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", "alligator:9092");
         props.put("client.id", "ProducerExample");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("partitioner.class", "generator.SSEPartitioner");
         producer = new KafkaProducer<String, String>(props);
     }
 
     public void generate(int speed) throws InterruptedException {
         RandomDataGenerator messageGenerator = new RandomDataGenerator();
         long time = System.currentTimeMillis();
-        long interval = 1000000000/5000;
+        long interval = 1000000000/speed;
         long cur = 0;
 
         long start = System.nanoTime();
         int counter = 0;
+        System.out.println("Speed: " + speed);
         // for loop to generate message
         for (long sent_sentences = 0; sent_sentences < SENTENCE_NUM; ++sent_sentences) {
             cur = System.nanoTime();
@@ -77,7 +77,7 @@ public class WCGenerator {
 
     public static void main(String[] args) throws InterruptedException {
         String TOPIC = new String("WordCount");
-        int speed = 1;
+        int speed = 1000;
         if (args.length > 0) {
             TOPIC = args[0];
             speed = Integer.parseInt(args[2]);
